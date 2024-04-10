@@ -10,3 +10,8 @@ void Entity::Tick()
 {
 
 }
+
+void Entity::Describe()
+{
+	
+}

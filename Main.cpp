@@ -62,7 +62,7 @@ int main()
 				{
 					cout << str + " ";
 				}
-				cout << "\n\n";
+				cout << "\n";
 			}
 		}
 
@@ -76,7 +76,7 @@ int main()
 			{
 				if (!world.TranslateArgument(inputArgs))
 				{
-					cout << "The introduced command does not exist \n";
+					cout << "The introduced command does not exist \n\n";
 				}	
 			}
 

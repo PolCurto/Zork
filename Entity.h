@@ -1,4 +1,5 @@
 #pragma once
+
 #ifndef ENTITY_H
 #define ENTITY_H
 
@@ -23,8 +24,9 @@ public:
 
 	Entity(const string name, const string description);
 	virtual void Tick();
+	virtual void Describe();
 
-private:
+protected:
 	EntityType type;
 	string name;
 	string description;

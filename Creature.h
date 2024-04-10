@@ -1,23 +1,23 @@
 #pragma once
+
 #ifndef CREATURE_H
 #define CREATURE_H
 
 #include "Entity.h";
-#include <string>
+#include "Room.h";
 
-using namespace std;
-
-class Creature : Entity
+class Creature : public Entity
 {
 public:
 	
-	Creature(const string name, const string description);
+	Creature(const string name, const string description, Room* location);
 
 	virtual void Tick();
+	virtual void Describe();
 
 
-private:
-	//Room* location;
+protected:
+	Room* location;
 };
 
 #endif 

@@ -1,19 +1,18 @@
 #pragma once
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
 #include "Creature.h"
-#include <string>
 
-using namespace std;
-
-class Player : Creature
+class Player : public Creature
 {
 public:
 
-	Player(const string name, const string description);
+	Player(const string name, const string description, Room* location);
 
 	void SayHello();
+	void Describe(string target);
 
 private:
 
