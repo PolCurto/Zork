@@ -3,9 +3,12 @@
 #include <conio.h>
 #include <string>
 
+#include "World.h"
 #include "Utils.h"
 
 using namespace std;
+
+#define TICK_RATE 500
 
 int main()
 {
@@ -14,9 +17,14 @@ int main()
 	string input;
 	vector<string> inputArgs;
 
+	World world;
+
+	clock_t time = clock();
+	clock_t lastTick = 0;
+
 	cout << "Welcome to Zork! \n \n";
 
-	while (1)
+	while (true)
 	{
 		keyCode = _kbhit();
 
@@ -48,7 +56,7 @@ int main()
 			else
 			{
 				// When enter is pressed, separates the input arguments by the blank spaces
-				ParseString(input, inputArgs);
+				inputArgs = ParseString(input, ' ');
 				cout << '\n';
 				for (string str : inputArgs)
 				{
@@ -66,13 +74,24 @@ int main()
 			}
 			else
 			{
-				cout << "Don't get the argument: " + inputArgs[0] + '\n';
+				if (!world.TranslateArgument(inputArgs))
+					cout << "The introduced command does not exist \n";
 			}
 
 			inputArgs.clear();
 			input = "";
 			cout << "- ";
 		}
+
+		time = clock();
+		if (time - lastTick >= TICK_RATE)
+		{
+			cout << time;
+			lastTick = time;
+			world.TickGame();
+		}
+
+		
 	}
 
 	cout << "You have exited the game. Thanks for playing";

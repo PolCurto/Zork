@@ -7,8 +7,6 @@
 
 using namespace std;
 
-void ParseString(string& input, vector<string>& args);
-
-
+vector<string> ParseString(const string input, const char separator);
 
 #endif
