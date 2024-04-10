@@ -57,12 +57,12 @@ int main()
 			{
 				// When enter is pressed, separates the input arguments by the blank spaces
 				inputArgs = ParseString(input, ' ');
-				cout << '\n';
+				cout << "\n\nIntroduced command: ";
 				for (string str : inputArgs)
 				{
 					cout << str + " ";
 				}
-				cout << '\n';
+				cout << "\n\n";
 			}
 		}
 
@@ -75,7 +75,9 @@ int main()
 			else
 			{
 				if (!world.TranslateArgument(inputArgs))
+				{
 					cout << "The introduced command does not exist \n";
+				}	
 			}
 
 			inputArgs.clear();
@@ -86,7 +88,7 @@ int main()
 		time = clock();
 		if (time - lastTick >= TICK_RATE)
 		{
-			cout << time;
+			//cout << time;
 			lastTick = time;
 			world.TickGame();
 		}

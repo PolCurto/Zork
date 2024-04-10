@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __Utils__
-#define __Utils__
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <vector>
 #include <string>
