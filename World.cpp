@@ -1,5 +1,7 @@
 #include "World.h"
 #include "Exit.h"
+#include "Item.h"
+
 
 World::World()
 {
@@ -14,7 +16,21 @@ World::World()
 	forest->AddChild(forestToStart);
 	entities.push_back(startToForest);
 
-	player = new Player("Lisan Al-Gaib", "Duque of Arrakis", startingRoom);
+	Room* dungeon = new Room("Dungeon Main Hall", "Darkness and algo everywhere the eye can reach");
+	Exit* startToDungeon = new Exit("Tight Corridors", "Better not be claustrophobic", startingRoom, dungeon, RIGHT);
+	Exit* dungeonToStart = new Exit("Wide Corridors", "Enough space to not have all the ways covered", dungeon, startingRoom, LEFT);
+	startingRoom->AddChild(startToDungeon);
+	dungeon->AddChild(dungeonToStart);
+	entities.push_back(dungeon);
+	entities.push_back(startToDungeon);
+	entities.push_back(dungeonToStart);
+
+	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", dungeon);
+	dungeon->AddChild(sword);
+	entities.push_back(sword);
+
+	player = new Player("Godfrey", "The first Elden Lord", startingRoom);
+	startingRoom->AddChild(player);
 	entities.push_back(player);
 }
 

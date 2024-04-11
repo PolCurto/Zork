@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -14,10 +12,11 @@ public:
 	void SayHello();
 	void Describe(string target);
 	void Move(string direction);
+	void PickUp(string item);
+	void Drop(string item);
 
 private:
 
 };
-
 
 #endif

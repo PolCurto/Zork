@@ -20,6 +20,16 @@ void Player::Describe(string target)
 			location->Describe();
 			return;
 		}
+		else if (target.compare("all") == 0 || target.compare("All") == 0)
+		{
+			location->Describe();
+			for (Entity* entity : location->GetAllChildren())
+			{
+				if (entity != this)
+					entity->Describe();
+			}
+			Describe("");
+		}
 		else
 		{
 			cout << "That target does not exist\n";
@@ -36,7 +46,7 @@ void Player::Move(string direction)
 {
 	Room* nextRoom = 0;
 	
-	cout << "Player move\n";
+	//cout << "Player move\n";
 	//cout << "Location adress: ";
 	//cout << location;
 	//cout << '\n';
@@ -54,4 +64,13 @@ void Player::Move(string direction)
 	{
 		cout << "There is no exit in that direction \n";
 	}
+}
+
+void Player::PickUp(string item)
+{
+
+}
+
+void Player::Drop(string item) {
+
 }

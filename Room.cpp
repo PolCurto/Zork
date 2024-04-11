@@ -8,7 +8,7 @@ Room::Room(const string name, const string description) : Entity(name, descripti
 
 void Room::Describe()
 {
-	cout << "Room: " + name + ". " + description + '\n';
+	cout << "You are in " + name + ". " + description + '\n';
 }
 
 bool Room::LookForExit(string direction, Room* &nextRoom)

@@ -15,21 +15,23 @@ bool Exit::IsValidDirection(string direction)
 		if (this->direction == UP) return true;
 		else return false;
 	}
-	if (direction.compare("right") == 0 || direction.compare("Right") == 0)
+	else if (direction.compare("right") == 0 || direction.compare("Right") == 0)
 	{
 		if (this->direction == RIGHT) return true;
 		else return false;
 	}
-	if (direction.compare("down") == 0 || direction.compare("Down") == 0)
+	else if (direction.compare("down") == 0 || direction.compare("Down") == 0)
 	{
 		if (this->direction == DOWN) return true;
 		else return false;
 	}
-	if (direction.compare("left") == 0 || direction.compare("Left") == 0)
+	else if (direction.compare("left") == 0 || direction.compare("Left") == 0)
 	{
 		if (this->direction == LEFT) return true;
 		else return false;
 	}
+
+	return false;
 }
 
 // Returns the room linked to the one given
@@ -37,14 +39,25 @@ Room* Exit::GetLinkedRoom(Room* currentRoom)
 {
 	if (currentRoom == source)
 	{
-		cout << "It is source\n";
+		//cout << "It is source\n";
 		return destination;
 	}
 	else if (currentRoom == destination)
 	{
-		cout << "It is destination\n";
+		//cout << "It is destination\n";
 		return source;
 	}
 
-	cout << "It is nothing\n";
+	//cout << "It is nothing\n";
+}
+
+void Exit::Describe()
+{
+	cout << name;
+	cout << ". ";
+	cout << description;
+	cout << ". Connects ";
+	cout << source->name;
+	cout << " with ";
+	cout << destination->name + '\n';
 }

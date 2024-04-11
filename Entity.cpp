@@ -31,6 +31,11 @@ list<Entity*> Entity::GetChildrenByType(EntityType type)
 	return selectedChildren;
 }
 
+list<Entity*> Entity::GetAllChildren()
+{
+	return children;
+}
+
 void Entity::AddChild(Entity* newChild)
 {
 	children.push_back(newChild);

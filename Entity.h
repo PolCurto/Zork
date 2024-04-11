@@ -27,6 +27,7 @@ public:
 	virtual void Describe();
 
 	list<Entity*> GetChildrenByType(EntityType type);
+	list<Entity*> GetAllChildren();
 	void AddChild(Entity* newChild);
 
 public:

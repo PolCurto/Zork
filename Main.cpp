@@ -23,6 +23,7 @@ int main()
 	clock_t lastTick = 0;
 
 	cout << "Welcome to Zork! \n \n";
+	cout << "- ";
 
 	while (true)
 	{
@@ -43,10 +44,11 @@ int main()
 					//cout << BACKSPACE;
 					cout << '\b';
 					cout << " ";
-					cout << '\b';
+					//cout << '\b';
 				}
 			}
 			*/
+			
 			if (keyValue != '\r')
 			{
 				// Concat the charactars in the input string
@@ -92,8 +94,6 @@ int main()
 			lastTick = time;
 			world.TickGame();
 		}
-
-		
 	}
 
 	cout << "You have exited the game. Thanks for playing";

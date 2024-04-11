@@ -14,6 +14,7 @@ public:
 
 	virtual void Tick();
 	virtual void Describe();
+	virtual void Move();
 
 
 protected:

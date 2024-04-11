@@ -21,6 +21,7 @@ public:
 	Exit(const string name, const string description, Room* source, Room* destination, const ExitDirection direction);
 	bool IsValidDirection(string direction);
 	Room* GetLinkedRoom(Room* currentRoom);
+	void Describe();
 
 private:
 	ExitDirection direction;

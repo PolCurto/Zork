@@ -15,3 +15,8 @@ void Creature::Describe()
 {
 	cout << "Creature with name: " + name + ". " + description;
 }
+
+void Creature::Move()
+{
+
+}
