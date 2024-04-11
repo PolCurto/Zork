@@ -11,6 +11,7 @@ public:
 	
 	Room(const string name, const string description);
 	void Describe();
+	bool LookForExit(string direction, Room* &nextRoom);
 
 private:
 

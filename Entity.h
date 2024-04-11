@@ -26,7 +26,10 @@ public:
 	virtual void Tick();
 	virtual void Describe();
 
-protected:
+	list<Entity*> GetChildrenByType(EntityType type);
+	void AddChild(Entity* newChild);
+
+public:
 	EntityType type;
 	string name;
 	string description;

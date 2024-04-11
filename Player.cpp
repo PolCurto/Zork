@@ -30,3 +30,28 @@ void Player::Describe(string target)
 		cout << "I am " + name + ", " + description + '\n';
 	}
 }
+
+// Moves to the given direction
+void Player::Move(string direction)
+{
+	Room* nextRoom = 0;
+	
+	cout << "Player move\n";
+	//cout << "Location adress: ";
+	//cout << location;
+	//cout << '\n';
+
+	if (location->LookForExit(direction, nextRoom))
+	{
+		//cout << "Next room returned with adress:";
+		//cout << nextRoom;
+		//cout << '\n';
+
+		location = nextRoom;
+		Describe("room");
+	}
+	else
+	{
+		cout << "There is no exit in that direction \n";
+	}
+}

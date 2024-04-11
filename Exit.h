@@ -19,6 +19,8 @@ class Exit : public Entity
 public:
 
 	Exit(const string name, const string description, Room* source, Room* destination, const ExitDirection direction);
+	bool IsValidDirection(string direction);
+	Room* GetLinkedRoom(Room* currentRoom);
 
 private:
 	ExitDirection direction;

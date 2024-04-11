@@ -13,6 +13,7 @@ public:
 
 	void SayHello();
 	void Describe(string target);
+	void Move(string direction);
 
 private:
 

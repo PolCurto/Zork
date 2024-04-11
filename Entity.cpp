@@ -15,3 +15,23 @@ void Entity::Describe()
 {
 	
 }
+
+list<Entity*> Entity::GetChildrenByType(EntityType type)
+{
+	list<Entity*> selectedChildren;
+	list<Entity*>::iterator it;
+
+	for (it = children.begin(); it != children.end(); it++)
+	{
+		if ((*it)->type == type)
+		{
+			selectedChildren.push_back((*it));
+		}
+	}
+	return selectedChildren;
+}
+
+void Entity::AddChild(Entity* newChild)
+{
+	children.push_back(newChild);
+}
