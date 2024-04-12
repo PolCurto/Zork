@@ -65,7 +65,7 @@ bool World::TranslateArgument(vector<string> argument)
 			exists = true;
 		}
 	}
-	else if (argument.size() > 1)
+	else if (argument.size() == 2)
 	{
 		if (argument[0].compare("describe") == 0 || argument[0].compare("Describe") == 0)
 		{
@@ -75,7 +75,20 @@ bool World::TranslateArgument(vector<string> argument)
 		else if (argument[0].compare("move") == 0 || argument[0].compare("Move") == 0)
 		{
 			player->Move(argument[1]);
-			; exists = true;
+			exists = true;
+		}
+		else if (argument[0].compare("pick") == 0 || argument[0].compare("Pick") == 0)
+		{
+			player->PickItem(argument[1]);
+			exists = true;
+		}
+	}
+	else if (argument.size() == 4)
+	{
+		if ((argument[0].compare("pick") == 0 || argument[0].compare("Pick") == 0) && (argument[2].compare("from") == 0 || argument[2].compare("from") == 0))
+		{
+			player->PickItem(argument[1], argument[3]);
+			exists = true;
 		}
 	}
 

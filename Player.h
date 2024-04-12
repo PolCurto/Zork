@@ -12,8 +12,8 @@ public:
 	void SayHello();
 	void Describe(string target);
 	void Move(string direction);
-	void PickUp(string item);
-	void DropItem(string item);
+	void PickItem(string item, string source = "");
+	void DropItem(Entity* source, string item);
 
 private:
 

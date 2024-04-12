@@ -69,13 +69,52 @@ void Player::Move(string direction)
 	}
 }
 
-void Player::PickUp(string item)
+void Player::PickItem(string item, string source)
 {
-	Item* newItem = 0;
+	Entity* parent;
 
+	if (source == "")
+	{
+		// If no source is given, by default picks the item from the current room
+		parent = location;
+	}
+	else
+	{
+		cout << "Item from source\n";
+		// If source is given, picks the item fron another item the player already has
+		if (!TryGetChildByName(item, parent))
+		{
+			cout << "The source ";
+			cout << source;
+			cout << " doesn't exist!\n";
+			return;
+		}
+	}
+
+	Entity* newItem;
+
+	cout << "Try to pick item: ";
+	cout << item;
+	cout << " from ";
+	cout << parent->name + '\n';
+
+	
+	if (parent->TryGetChildByName(item, newItem) && newItem->type == ITEM)
+	{
+		Item* item = (Item*)newItem;
+		item->ChangeParent(this);	
+		AddChild(item);
+	}
+	else
+	{
+		cout << "There is no item called ";
+		cout << item;
+		cout << " in ";
+		cout << parent->name + '\n';
+	}	
 }
 
-void Player::DropItem(string item) 
+void Player::DropItem(Entity* source, string item)
 {
 	// Look for item in inventory
 

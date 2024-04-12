@@ -11,6 +11,7 @@ public:
 
 	Item(const string name, const string description, Entity* parent);
 	void Describe();
+	void ChangeParent(Entity* newParent);
 
 
 private:

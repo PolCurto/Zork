@@ -28,6 +28,7 @@ public:
 
 	list<Entity*> GetChildrenByType(EntityType type);
 	list<Entity*> GetAllChildren();
+	bool TryGetChildByName(string name, Entity* &child);
 	void AddChild(Entity* newChild);
 	void RemoveChild(Entity* oldChild);
 
