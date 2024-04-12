@@ -5,6 +5,7 @@
 
 #include "Entity.h";
 #include "Room.h";
+#include "Item.h";
 
 class Creature : public Entity
 {
@@ -15,6 +16,8 @@ public:
 	virtual void Tick();
 	virtual void Describe();
 	virtual void Move();
+	virtual void PickUp();
+	virtual void DropItem();
 
 
 protected:

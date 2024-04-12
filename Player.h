@@ -13,7 +13,7 @@ public:
 	void Describe(string target);
 	void Move(string direction);
 	void PickUp(string item);
-	void Drop(string item);
+	void DropItem(string item);
 
 private:
 

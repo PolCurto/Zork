@@ -20,3 +20,13 @@ void Creature::Move()
 {
 
 }
+
+void Creature::PickUp()
+{
+
+}
+
+void Creature::DropItem()
+{
+
+}

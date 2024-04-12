@@ -29,6 +29,7 @@ public:
 	list<Entity*> GetChildrenByType(EntityType type);
 	list<Entity*> GetAllChildren();
 	void AddChild(Entity* newChild);
+	void RemoveChild(Entity* oldChild);
 
 public:
 	EntityType type;

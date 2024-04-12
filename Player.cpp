@@ -57,7 +57,10 @@ void Player::Move(string direction)
 		//cout << nextRoom;
 		//cout << '\n';
 
+		location->RemoveChild(this);
+		nextRoom->AddChild(this);
 		location = nextRoom;
+		
 		Describe("room");
 	}
 	else
@@ -68,9 +71,13 @@ void Player::Move(string direction)
 
 void Player::PickUp(string item)
 {
+	Item* newItem = 0;
 
 }
 
-void Player::Drop(string item) {
+void Player::DropItem(string item) 
+{
+	// Look for item in inventory
 
+	// Change the item parent to the room itself
 }

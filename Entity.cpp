@@ -40,3 +40,8 @@ void Entity::AddChild(Entity* newChild)
 {
 	children.push_back(newChild);
 }
+
+void Entity::RemoveChild(Entity* oldChild)
+{
+	children.remove(oldChild);
+}
