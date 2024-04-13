@@ -84,7 +84,7 @@ int main()
 
 			inputArgs.clear();
 			input = "";
-			cout << "- ";
+			cout << "\n- ";
 		}
 
 		time = clock();

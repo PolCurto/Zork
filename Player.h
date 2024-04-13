@@ -14,6 +14,7 @@ public:
 	void Move(string direction);
 	void PickItem(string item, string source = "");
 	void DropItem(string item, string destination = "");
+	void Talk(string target);
 
 private:
 

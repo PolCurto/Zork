@@ -11,7 +11,7 @@ void Room::Describe()
 	cout << "You are in " + name + ". " + description + '\n';
 }
 
-bool Room::LookForExit(string direction, Room* &nextRoom)
+bool Room::LookForExit(string direction, Entity* &nextRoom)
 {
 	//cout << "This adress: ";
 	//cout << this;

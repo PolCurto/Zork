@@ -6,6 +6,7 @@ Exit::Exit(const string name, const string description, Room* source, Room* dest
 	this->source = source;
 	this->destination = destination;
 	this->direction = direction;
+	//new Exit(name, description, chamber, dungeon, DOWN);
 }
 
 bool Exit::IsValidDirection(string direction)
@@ -35,14 +36,14 @@ bool Exit::IsValidDirection(string direction)
 }
 
 // Returns the room linked to the one given
-Room* Exit::GetLinkedRoom(Room* currentRoom)
+Entity* Exit::GetLinkedRoom(Entity* currentRoom)
 {
 	if (currentRoom == source)
 	{
 		//cout << "It is source\n";
 		return destination;
 	}
-	else if (currentRoom == destination)
+	else
 	{
 		//cout << "It is destination\n";
 		return source;

@@ -1,6 +1,7 @@
 #include "World.h"
 #include "Exit.h"
 #include "Item.h"
+#include "Npc.h"
 
 
 World::World()
@@ -58,19 +59,38 @@ World::World()
 	chamber->AddChild(potion);
 	entities.push_back(potion);
 
-
-	// Player
+	// Creatures
 	player = new Player("Godfrey", "The first Elden Lord", startingRoom);
 	startingRoom->AddChild(player);
 	entities.push_back(player);
+
+	string phrases[4] = {
+		"Greetings " + player->name,
+		"How do I know you name? I know many things... heheheh...",
+		"I also know you are " + player->description,
+		"Be careful " + player->name + ", may we find each other again... or not..."
+	};
+
+	Npc* oldMan = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, phrases);
+	forest->AddChild(oldMan);
+	entities.push_back(oldMan);
+
+	phrases->clear();
+	phrases[0] = "You must be brave to talk to me, stranger";
+	phrases[1] = "This place is not even a glimpse of what it was in the golden days";
+	phrases[2] = "Take all the equipment you find, you will most likely need it";
+	phrases[3] = "See you again, fellow traveler";
+
+	Npc* warrior = new Npc("Malenia", "She has never known defeat", dungeon, phrases);
+	dungeon->AddChild(warrior);
+	entities.push_back(warrior);
 }
 
 void World::TickGame()
 {
-	//cout << "Tick\n";
-	for (Entity* entity : entities)
+	for (int i = 0; i < entities.size(); i++)
 	{
-		entity->Tick();
+		entities[i]->Tick();
 	}
 }
 
@@ -116,6 +136,14 @@ bool World::TranslateArgument(vector<string> argument)
 		else if (argument[0].compare("drop") == 0 || argument[0].compare("Drop") == 0)
 		{
 			player->DropItem(argument[1]);
+			exists = true;
+		}
+	}
+	else if (argument.size() == 3)
+	{
+		if ((argument[0].compare("talk") == 0 || argument[0].compare("Talk") == 0) && (argument[1].compare("to") == 0 || argument[1].compare("To") == 0))
+		{
+			player->Talk(argument[2]);
 			exists = true;
 		}
 	}

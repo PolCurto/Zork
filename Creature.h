@@ -5,7 +5,6 @@
 
 #include "Entity.h";
 #include "Room.h";
-#include "Item.h";
 
 class Creature : public Entity
 {
@@ -18,7 +17,8 @@ public:
 	virtual void Move();
 	virtual void PickUp();
 	virtual void DropItem();
-	void MoveItem(const string itemName, Item* item, Entity* oldParent, Entity* newParen);
+	virtual void Talk();
+	void MoveItem(const string itemName, Entity* item, Entity* oldParent, Entity* newParen);
 
 
 protected:

@@ -7,7 +7,7 @@ Player::Player(const string name, const string description, Room* location) : Cr
 
 void Player::SayHello()
 {
-	cout << "Hello fellow master!\n";
+	cout << "Hello master!\n";
 }
 
 void Player::Describe(string target)
@@ -61,7 +61,7 @@ void Player::Describe(string target)
 // Moves to the given direction
 void Player::Move(string direction)
 {
-	Room* nextRoom = 0;
+	Entity* nextRoom = 0;
 	
 	//cout << "Player move\n";
 	//cout << "Location adress: ";
@@ -76,7 +76,7 @@ void Player::Move(string direction)
 
 		location->RemoveChild(this);
 		nextRoom->AddChild(this);
-		location = nextRoom;
+		location = (Room*)nextRoom;
 		
 		Describe("room");
 	}
@@ -108,7 +108,7 @@ void Player::PickItem(string itemName, string source)
 		}
 	}
 
-	Item* item = 0;
+	Entity* item = 0;
 
 	MoveItem(itemName, item, oldParent, this);
 }
@@ -135,7 +135,22 @@ void Player::DropItem(string itemName, string destination)
 		}
 	}
 
-	Item* item = 0;
+	Entity* item = 0;
 
 	MoveItem(itemName, item, this, newParent);
+}
+
+void Player::Talk(string target)
+{
+	Entity* entity;
+
+	if (location->TryGetChildByName(target, entity) && entity->type == NPC)
+	{
+		Creature* npc = (Creature*)entity;
+		npc->Talk();
+	}
+	else
+	{
+		cout << target + " is not in this room\n";
+	}
 }

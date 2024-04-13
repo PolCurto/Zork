@@ -66,3 +66,8 @@ void Entity::RemoveChild(Entity* oldChild)
 {
 	children.remove(oldChild);
 }
+
+void Entity::ChangeParent(Entity* newParent)
+{
+
+}

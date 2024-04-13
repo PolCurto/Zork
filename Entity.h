@@ -15,6 +15,7 @@ enum EntityType
 {
 	CREATURE,
 	PLAYER,
+	NPC,
 	ROOM,
 	EXIT,
 	ITEM
@@ -33,6 +34,7 @@ public:
 	bool TryGetChildByName(string name, Entity* &child);
 	void AddChild(Entity* newChild);
 	void RemoveChild(Entity* oldChild);
+	virtual void ChangeParent(Entity* newParent);
 
 public:
 	EntityType type;
