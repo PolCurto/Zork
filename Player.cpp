@@ -1,6 +1,7 @@
 #include "Player.h"
 
-Player::Player(const string name, const string description, Room* location) : Creature(name, description, location)
+Player::Player(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility) :
+	Creature(name, description, location, hp, attackDamage, defense, agility)
 {
 	this->type = PLAYER;
 }
@@ -14,28 +15,11 @@ void Player::Describe(string target)
 {
 	if (target.length() > 0)
 	{
-		cout << "Target: " + target + '\n';
+		//cout << "Target: " + target + '\n';
 		if (target.compare("room") == 0 || target.compare("Room") == 0)
 		{
 			location->Describe();
 			return;
-		}
-		else if (target.compare("inventory") == 0 || target.compare("Inventory") == 0)
-		{
-			list<Entity*> playerInventory = GetAllChildren();
-
-			if (playerInventory.size() > 0)
-			{
-				for (Entity* entity : playerInventory)
-				{
-					entity->Describe();
-				}
-			}
-			else
-			{
-				cout << "Your inventory is empty\n";
-			}
-			
 		}
 		else if (target.compare("all") == 0 || target.compare("All") == 0)
 		{
@@ -45,7 +29,6 @@ void Player::Describe(string target)
 				if (entity != this)
 					entity->Describe();
 			}
-			Describe();
 		}
 		else
 		{
@@ -55,6 +38,23 @@ void Player::Describe(string target)
 	else
 	{
 		cout << "I am " + name + ", " + description + '\n';
+	}
+}
+
+void Player::Inventory()
+{
+	list<Entity*> playerInventory = GetAllChildren();
+
+	if (playerInventory.size() > 0)
+	{
+		for (Entity* entity : playerInventory)
+		{
+			entity->Describe();
+		}
+	}
+	else
+	{
+		cout << "Your inventory is empty\n";
 	}
 }
 

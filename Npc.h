@@ -9,7 +9,7 @@ class Npc : public Creature
 {
 public:
 
-	Npc(const string name, const string description, Room* location, string phrases[]);
+	Npc(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, string phrases[]);
 
 	void Tick();
 	void Describe();

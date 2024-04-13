@@ -1,9 +1,13 @@
 #include "Item.h"
 
-Item::Item(const string name, const string description, Entity* parent) : Entity(name, description)
+Item::Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility) : Entity(name, description)
 {
 	this->type = ITEM;
 	this->parent = parent;
+	this->hp = hp;
+	this->attackDamage = attackDamage;
+	this->defense = defense;
+	this->agility = agility;
 }
 
 void Item::Describe()
@@ -15,6 +19,7 @@ void Item::ChangeParent(Entity* newParent)
 {
 	Entity* oldParent;
 
+	/*
 	cout << "Old parent children size: ";
 	cout << parent->GetAllChildren().size();
 	cout << ". New parent children size: ";
@@ -24,12 +29,14 @@ void Item::ChangeParent(Entity* newParent)
 	cout << name;
 	cout << " old parent: ";
 	cout << parent->name;
+	*/
 
 	parent->RemoveChild(this);
 	oldParent = parent;
 	parent = newParent;
 	newParent->AddChild(this);
 
+	/*
 	cout << ". New parent: ";
 	cout << parent->name;
 	cout << '\n';
@@ -39,4 +46,5 @@ void Item::ChangeParent(Entity* newParent)
 	cout << ". New parent children size: ";
 	cout << newParent->GetAllChildren().size();
 	cout << '\n';
+	*/
 }

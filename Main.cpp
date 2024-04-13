@@ -59,12 +59,15 @@ int main()
 			{
 				// When enter is pressed, separates the input arguments by the blank spaces
 				inputArgs = ParseString(input, ' ');
+				cout << "\n\n";
+				/*
 				cout << "\n\nIntroduced command: ";
 				for (string str : inputArgs)
 				{
 					cout << str + " ";
 				}
 				cout << "\n";
+				*/
 			}
 		}
 

@@ -10,7 +10,7 @@ class Creature : public Entity
 {
 public:
 	
-	Creature(const string name, const string description, Room* location);
+	Creature(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility);
 
 	virtual void Tick();
 	virtual void Describe();
@@ -24,6 +24,10 @@ public:
 
 protected:
 	Room* location;
+	int hp;
+	int attackDamage;
+	int defense;
+	int agility;
 };
 
 #endif 

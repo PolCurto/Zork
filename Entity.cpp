@@ -40,13 +40,12 @@ bool Entity::TryGetChildByName(string name, Entity* &child)
 {
 	list<Entity*>::iterator it;
 
-	cout << "Find children by name\n";
+	//cout << "Find children by name\n";
 
 	for (it = children.begin(); it != children.end(); it++)
 	{
-		
-		cout << (*it)->name;
-		cout << '\n';
+		//cout << (*it)->name;
+		//cout << '\n';
 
 		if ((*it)->name.compare(name) == 0)
 		{

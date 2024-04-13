@@ -36,24 +36,24 @@ World::World()
 	entities.push_back(chamberToForest);
 
 	// Items
-	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", startingRoom);
+	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", startingRoom, 0, 20, 0, 0);
 	startingRoom->AddChild(sword);
 	entities.push_back(sword);
 
-	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", forest);
+	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", forest, 0, 10, 10, 0);
 	forest->AddChild(pearl);
 	entities.push_back(pearl);
 
-	Item* shield = new Item("Shield", "Can be used to take some hits, but won't last for long", dungeon);
+	Item* shield = new Item("Shield", "Can be used to take some hits, but won't last for long", dungeon, 0, 0, 20, 0);
 	dungeon->AddChild(shield);
 	entities.push_back(sword);
 
-	Item* potion = new Item("Potion", "The king's last resource. Gives you a boost you have nefer experienced", chamber);
+	Item* potion = new Item("Potion", "The king's last resource. Gives you a boost you have nefer experienced", chamber, 20, 20, 20, 20);
 	chamber->AddChild(potion);
 	entities.push_back(potion);
 
 	// Creatures
-	player = new Player("Godfrey", "The first Elden Lord", startingRoom);
+	player = new Player("Godfrey", "The first Elden Lord", startingRoom, 10, 2, 2, 2);
 	startingRoom->AddChild(player);
 	entities.push_back(player);
 
@@ -65,7 +65,7 @@ World::World()
 		"Be careful " + player->name + ", may we find each other again... or not..."
 	};
 
-	Npc* oldMan = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, phrases);
+	Npc* oldMan = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, 4, 8, 1, 2, phrases);
 	forest->AddChild(oldMan);
 	entities.push_back(oldMan);
 
@@ -75,7 +75,7 @@ World::World()
 	phrases[2] = "Take all the equipment you find, you will most likely need it";
 	phrases[3] = "See you again, fellow traveler";
 
-	Npc* warrior = new Npc("Malenia", "She has never known defeat", dungeon, phrases);
+	Npc* warrior = new Npc("Malenia", "She has never known defeat", dungeon, 15, 4, 4, 4, phrases);
 	dungeon->AddChild(warrior);
 	entities.push_back(warrior);
 	
@@ -108,6 +108,11 @@ bool World::TranslateArgument(vector<string> argument)
 		else if (argument[0].compare("move") == 0 || argument[0].compare("Move") == 0)
 		{
 			cout << "Where to?\n";
+			exists = true;
+		}
+		else if (argument[0].compare("inventory") == 0 || argument[0].compare("Inventory") == 0)
+		{
+			player->Inventory();
 			exists = true;
 		}
 	}

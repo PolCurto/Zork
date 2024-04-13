@@ -1,8 +1,12 @@
 #include "Creature.h"
 
-Creature::Creature(const string name, const string description, Room* location) : Entity(name, description)
+Creature::Creature(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility) : Entity(name, description)
 {
 	this->location = location;
+	this->hp = hp;
+	this->attackDamage = attackDamage;
+	this->defense = defense;
+	this->agility = agility;
 	this->type = CREATURE;
 }
 
@@ -59,23 +63,28 @@ void Creature::Talk()
 
 void Creature::MoveItem(const string itemName, Entity* item, Entity* oldParent, Entity* newParent)
 {
+	/*
 	cout << "Try to pick / drop item: ";
 	cout << itemName;
 	cout << " from / to ";
 	cout << oldParent->name + '\n';
+	*/
 
 	if (oldParent->TryGetChildByName(itemName, item) && item->type == ITEM)
 	{
+		/*
 		cout << "New parent: ";
 		cout << newParent->name + '\n';
 		cout << "New item: ";
 		cout << item->name + '\n';
+		*/
 
 		if (newParent == item)
 		{
 			cout << "You can't place an item inside itself! That would bend the rules of the unverse\n";
 			return;
 		}
+
 		item->ChangeParent(newParent);
 	}
 	else

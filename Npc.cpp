@@ -1,6 +1,7 @@
 #include "Npc.h"
 
-Npc::Npc(const string name, const string description, Room* location, string phrases[]) : Creature(name, description, location)
+Npc::Npc(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, string phrases[]) : 
+	Creature(name, description, location, hp, attackDamage, defense, agility)
 {
 	this->type = NPC;
 
@@ -10,14 +11,14 @@ Npc::Npc(const string name, const string description, Room* location, string phr
 	{
 		this->phrases[i] = phrases[i];
 	}
-	timeToMove = rand() % (20000 - 5000 + 1) + 5000;
+	timeToMove = rand() % (20000 - 10000 + 1) + 10000;
 }
 
 void Npc::Tick()
 {
 	if (clock() - lastMoveTime > timeToMove)
 	{
-		timeToMove = rand() % 10000 + 5000;
+		timeToMove = rand() % (20000 - 10000 + 1) + 10000;
 		lastMoveTime = clock();
 		Move();
 	}
@@ -46,6 +47,7 @@ void Npc::Talk()
 	// Stay for longer if talked to
 	lastMoveTime = clock();
 
+	cout << name + ":\n    - ";
 	cout << phrases[timesTalked];
 	cout << '\n';
 
