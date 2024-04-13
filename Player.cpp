@@ -61,23 +61,11 @@ void Player::Describe(string target)
 // Moves to the given direction
 void Player::Move(string direction)
 {
-	Entity* nextRoom = 0;
-	
-	//cout << "Player move\n";
-	//cout << "Location adress: ";
-	//cout << location;
-	//cout << '\n';
+	bool isValid;
+	Creature::Move(direction, isValid);
 
-	if (location->LookForExit(direction, nextRoom))
+	if (isValid)
 	{
-		//cout << "Next room returned with adress:";
-		//cout << nextRoom;
-		//cout << '\n';
-
-		location->RemoveChild(this);
-		nextRoom->AddChild(this);
-		location = (Room*)nextRoom;
-		
 		Describe("room");
 	}
 	else

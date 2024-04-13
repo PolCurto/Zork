@@ -16,9 +16,30 @@ void Creature::Describe()
 	cout << "Creature with name: " + name + ". " + description;
 }
 
-void Creature::Move()
+void Creature::Move(string direction, bool &valid)
 {
+	Entity* nextRoom = 0;
 
+	//cout << "Player move\n";
+	//cout << "Location adress: ";
+	//cout << location;
+	//cout << '\n';
+
+	if (location->LookForExit(direction, nextRoom))
+	{
+		//cout << "Next room returned with adress:";
+		//cout << nextRoom;
+		//cout << '\n';
+
+		ChangeParent(nextRoom);
+		valid = true;
+
+		cout << "Creature with name " + name + " move to " + nextRoom->name + '\n';
+	}
+	else
+	{
+		valid = false;
+	}
 }
 
 void Creature::PickUp()
@@ -64,4 +85,11 @@ void Creature::MoveItem(const string itemName, Entity* item, Entity* oldParent, 
 		cout << " in ";
 		cout << oldParent->name + '\n';
 	}
+}
+
+void Creature::ChangeParent(Entity* newParent)
+{
+	location->RemoveChild(this);
+	location = (Room*)newParent;
+	location->AddChild(this);
 }

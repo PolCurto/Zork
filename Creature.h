@@ -14,11 +14,12 @@ public:
 
 	virtual void Tick();
 	virtual void Describe();
-	virtual void Move();
+	virtual void Move(string direction, bool &valid);
 	virtual void PickUp();
 	virtual void DropItem();
 	virtual void Talk();
 	void MoveItem(const string itemName, Entity* item, Entity* oldParent, Entity* newParen);
+	void ChangeParent(Entity* newParent);
 
 
 protected:

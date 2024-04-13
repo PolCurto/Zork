@@ -13,7 +13,7 @@ public:
 	Room(const string name, const string description);
 	void Describe();
 	bool LookForExit(string direction, Entity* &nextRoom);
-	bool FindItem(string item, Item* newItem);
+	list<string> GetExitDirections();
 
 private:
 

@@ -12,34 +12,27 @@ World::World()
 	entities.push_back(startingRoom);
 	entities.push_back(forest);
 
-	Exit* startToForest = new Exit("Green cave", "A rapid-changing mossy cave", startingRoom, forest, UP);
-	Exit* forestToStart = new Exit("Purple hills", "Breathtaking heights, it's better to not look down", forest, startingRoom, DOWN);
+	Exit* startToForest = new Exit("Green cave", "A rapid-changing mossy cave", startingRoom, forest, UP, DOWN);
 	startingRoom->AddChild(startToForest);
-	forest->AddChild(forestToStart);
+	forest->AddChild(startToForest);
 	entities.push_back(startToForest);
 
 	Room* dungeon = new Room("Dungeon Main Hall", "Darkness and algo everywhere the eye can reach");
-	Exit* startToDungeon = new Exit("Tight Corridors", "Better not be claustrophobic", startingRoom, dungeon, RIGHT);
-	Exit* dungeonToStart = new Exit("Wide Corridors", "Enough space for a deadly ambush", dungeon, startingRoom, LEFT);
+	Exit* startToDungeon = new Exit("Tight Corridors", "Better not be claustrophobic", startingRoom, dungeon, RIGHT, LEFT);
 	startingRoom->AddChild(startToDungeon);
-	dungeon->AddChild(dungeonToStart);
+	dungeon->AddChild(startToDungeon);
 	entities.push_back(dungeon);
 	entities.push_back(startToDungeon);
-	entities.push_back(dungeonToStart);
 
 	Room* chamber = new Room("King's Chamber", "The kingdom's mightiest treasures gathered in a single room");
-	Exit* dungeonToChamber = new Exit("Royal corridors", "You can smell the wealth of the place", dungeon, chamber, UP);
-	Exit* chamberToDungeon = new Exit("Royal corridors", "You can smell the wealth of the place", chamber, dungeon, DOWN);
-	Exit* forestToChamber = new Exit("Steep hill", "Drop yourself and pray to fall in a safe spot", forest, chamber, RIGHT);
-	Exit* chamberToForest = new Exit("Secret passage", "Can't build a castle without it's secret exit", dungeon, forest, LEFT);
+	Exit* dungeonToChamber = new Exit("Royal corridors", "You can smell the wealth of the place", dungeon, chamber, UP, DOWN);
+	Exit* chamberToForest = new Exit("Secret passage", "Can't build a castle without it's secret exit", chamber, forest, LEFT, RIGHT);
 	dungeon->AddChild(dungeonToChamber);
-	forest->AddChild(forestToChamber);
-	chamber->AddChild(chamberToDungeon);
+	forest->AddChild(chamberToForest);
+	chamber->AddChild(dungeonToChamber);
 	chamber->AddChild(chamberToForest);
 	entities.push_back(chamber);
 	entities.push_back(dungeonToChamber);
-	entities.push_back(chamberToDungeon);
-	entities.push_back(forestToChamber);
 	entities.push_back(chamberToForest);
 
 	// Items
@@ -64,6 +57,7 @@ World::World()
 	startingRoom->AddChild(player);
 	entities.push_back(player);
 
+	
 	string phrases[4] = {
 		"Greetings " + player->name,
 		"How do I know you name? I know many things... heheheh...",
@@ -84,6 +78,7 @@ World::World()
 	Npc* warrior = new Npc("Malenia", "She has never known defeat", dungeon, phrases);
 	dungeon->AddChild(warrior);
 	entities.push_back(warrior);
+	
 }
 
 void World::TickGame()

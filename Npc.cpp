@@ -10,7 +10,7 @@ Npc::Npc(const string name, const string description, Room* location, string phr
 	{
 		this->phrases[i] = phrases[i];
 	}
-	timeToMove = rand() % 10000 + 5000;;
+	timeToMove = rand() % (20000 - 5000 + 1) + 5000;
 }
 
 void Npc::Tick()
@@ -30,7 +30,15 @@ void Npc::Describe()
 
 void Npc::Move()
 {
-	cout << "Npc with name " + name + " move\n";
+	//Triar direcció
+	list<string> directions = location->GetExitDirections();
+	list<string>::iterator it = directions.begin();
+
+	int directionIndex = rand() % ((directions.size()-1) + 1);
+	advance(it, directionIndex);
+
+	bool isValid;
+	Creature::Move((*it), isValid);
 }
 
 void Npc::Talk()
