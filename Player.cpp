@@ -20,6 +20,23 @@ void Player::Describe(string target)
 			location->Describe();
 			return;
 		}
+		else if (target.compare("inventory") == 0 || target.compare("Inventory") == 0)
+		{
+			list<Entity*> playerInventory = GetAllChildren();
+
+			if (playerInventory.size() > 0)
+			{
+				for (Entity* entity : playerInventory)
+				{
+					entity->Describe();
+				}
+			}
+			else
+			{
+				cout << "Your inventory is empty\n";
+			}
+			
+		}
 		else if (target.compare("all") == 0 || target.compare("All") == 0)
 		{
 			location->Describe();
@@ -28,7 +45,7 @@ void Player::Describe(string target)
 				if (entity != this)
 					entity->Describe();
 			}
-			Describe("");
+			Describe();
 		}
 		else
 		{
@@ -69,20 +86,20 @@ void Player::Move(string direction)
 	}
 }
 
-void Player::PickItem(string item, string source)
+void Player::PickItem(string itemName, string source)
 {
-	Entity* parent;
+	Entity* oldParent;
 
 	if (source == "")
 	{
 		// If no source is given, by default picks the item from the current room
-		parent = location;
+		oldParent = location;
 	}
 	else
 	{
 		cout << "Item from source\n";
 		// If source is given, picks the item fron another item the player already has
-		if (!TryGetChildByName(item, parent))
+		if (!TryGetChildByName(source, oldParent))
 		{
 			cout << "The source ";
 			cout << source;
@@ -91,32 +108,34 @@ void Player::PickItem(string item, string source)
 		}
 	}
 
-	Entity* newItem;
+	Item* item = 0;
 
-	cout << "Try to pick item: ";
-	cout << item;
-	cout << " from ";
-	cout << parent->name + '\n';
+	MoveItem(itemName, item, oldParent, this);
+}
 
-	
-	if (parent->TryGetChildByName(item, newItem) && newItem->type == ITEM)
+void Player::DropItem(string itemName, string destination)
+{
+	Entity* newParent;
+
+	if (destination == "")
 	{
-		Item* item = (Item*)newItem;
-		item->ChangeParent(this);	
-		AddChild(item);
+		// If no source is given, by default picks the item from the current room
+		newParent = location;
 	}
 	else
 	{
-		cout << "There is no item called ";
-		cout << item;
-		cout << " in ";
-		cout << parent->name + '\n';
-	}	
-}
+		cout << "Item to source\n";
+		// If source is given, drops the item to another item the player already has
+		if (!TryGetChildByName(destination, newParent))
+		{
+			cout << "The destination ";
+			cout << destination;
+			cout << " doesn't exist!\n";
+			return;
+		}
+	}
 
-void Player::DropItem(Entity* source, string item)
-{
-	// Look for item in inventory
+	Item* item = 0;
 
-	// Change the item parent to the room itself
+	MoveItem(itemName, item, this, newParent);
 }

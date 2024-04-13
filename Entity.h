@@ -9,6 +9,8 @@ using namespace std;
 #include <list>
 #include <iostream>
 
+class Item;
+
 enum EntityType
 {
 	CREATURE,

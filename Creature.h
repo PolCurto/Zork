@@ -18,6 +18,7 @@ public:
 	virtual void Move();
 	virtual void PickUp();
 	virtual void DropItem();
+	void MoveItem(const string itemName, Item* item, Entity* oldParent, Entity* newParen);
 
 
 protected:

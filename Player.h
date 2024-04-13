@@ -10,10 +10,10 @@ public:
 	Player(const string name, const string description, Room* location);
 
 	void SayHello();
-	void Describe(string target);
+	void Describe(string target = "");
 	void Move(string direction);
 	void PickItem(string item, string source = "");
-	void DropItem(Entity* source, string item);
+	void DropItem(string item, string destination = "");
 
 private:
 

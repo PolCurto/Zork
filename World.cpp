@@ -29,6 +29,10 @@ World::World()
 	dungeon->AddChild(sword);
 	entities.push_back(sword);
 
+	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", forest);
+	forest->AddChild(pearl);
+	entities.push_back(pearl);
+
 	player = new Player("Godfrey", "The first Elden Lord", startingRoom);
 	startingRoom->AddChild(player);
 	entities.push_back(player);
@@ -56,7 +60,7 @@ bool World::TranslateArgument(vector<string> argument)
 		}
 		else if (argument[0].compare("describe") == 0)
 		{
-			player->Describe("");
+			player->Describe();
 			exists = true;
 		}
 		else if (argument[0].compare("move") == 0 || argument[0].compare("Move") == 0)
@@ -82,12 +86,22 @@ bool World::TranslateArgument(vector<string> argument)
 			player->PickItem(argument[1]);
 			exists = true;
 		}
+		else if (argument[0].compare("drop") == 0 || argument[0].compare("Drop") == 0)
+		{
+			player->DropItem(argument[1]);
+			exists = true;
+		}
 	}
 	else if (argument.size() == 4)
 	{
-		if ((argument[0].compare("pick") == 0 || argument[0].compare("Pick") == 0) && (argument[2].compare("from") == 0 || argument[2].compare("from") == 0))
+		if ((argument[0].compare("pick") == 0 || argument[0].compare("Pick") == 0) && (argument[2].compare("from") == 0 || argument[2].compare("From") == 0))
 		{
 			player->PickItem(argument[1], argument[3]);
+			exists = true;
+		}
+		if ((argument[0].compare("drop") == 0 || argument[0].compare("Drop") == 0) && (argument[2].compare("to") == 0 || argument[2].compare("To") == 0))
+		{
+			player->DropItem(argument[1], argument[3]);
 			exists = true;
 		}
 	}
