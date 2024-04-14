@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility, int equipmentSlots, ItemType itemType) : Entity(name, description)
+Item::Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots, ItemType itemType) : Entity(name, description)
 {
 	this->type = ITEM;
 	this->parent = parent;
@@ -8,6 +8,7 @@ Item::Item(const string name, const string description, Entity* parent, int hp, 
 	this->attackDamage = attackDamage;
 	this->defense = defense;
 	this->agility = agility;
+	this->attackSpeed = attackSpeed;
 	this->equipmentSlots = equipmentSlots;
 	this->itemType = itemType;
 }
@@ -19,33 +20,9 @@ void Item::Describe()
 
 void Item::ChangeParent(Entity* newParent)
 {
-	/*
-	cout << "Old parent children size: ";
-	cout << parent->GetAllChildren().size();
-	cout << ". New parent children size: ";
-	cout << newParent->GetAllChildren().size();
-	cout << '\n';
-
-	cout << name;
-	cout << " old parent: ";
-	cout << parent->name;
-	*/
-
 	parent->RemoveChild(this);
 	parent = newParent;
 	newParent->AddChild(this);
-
-	/*
-	cout << ". New parent: ";
-	cout << parent->name;
-	cout << '\n';
-
-	cout << "Old parent children size: ";
-	cout << oldParent->GetAllChildren().size();
-	cout << ". New parent children size: ";
-	cout << newParent->GetAllChildren().size();
-	cout << '\n';
-	*/
 }
 
 ItemType Item::GetItemType()
@@ -71,6 +48,11 @@ int Item::GetDefense()
 int Item::GetAgility()
 {
 	return this->agility;
+}
+
+float Item::GetAttackSpeed()
+{
+	return this->attackSpeed;
 }
 
 int Item::GetEquipmentSlots()

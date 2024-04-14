@@ -263,6 +263,11 @@ void Player::Use(string itemName)
 		Item* item = (Item*)entity;
 		if (item->GetItemType() == CONSUMABLE)
 		{
+			if (item->name.compare("Star"))
+			{
+				isLord = true;
+				return;
+			}
 			ModifyStats(item, true);
 			RemoveChild(item);
 			item = NULL;
@@ -302,6 +307,7 @@ void Player::ModifyStats(Item* item, bool add)
 		attackDamage += item->GetAttackDamage();
 		defense += item->GetDefense();
 		agility += item->GetAgility();
+		attackSpeed += item->GetAttackSpeed();
 		equipmentSlots += item->GetEquipmentSlots();
 	}
 	else
@@ -311,6 +317,7 @@ void Player::ModifyStats(Item* item, bool add)
 		attackDamage -= item->GetAttackDamage();
 		defense -= item->GetDefense();
 		agility -= item->GetAgility();
+		attackSpeed -= item->GetAttackSpeed();
 		equipmentSlots -= item->GetEquipmentSlots();
 	}
 }
@@ -355,4 +362,9 @@ void Player::Die()
 {
 	cout << "You have died fighting against " + target->name + '\n';
 	Creature::Die();
+}
+
+bool Player::IsLord()
+{
+	return isLord;
 }

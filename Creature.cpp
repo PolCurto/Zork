@@ -42,21 +42,21 @@ void Creature::Move(string direction, bool &valid)
 {
 	Entity* nextRoom = 0;
 
-	//cout << "Player move\n";
-	//cout << "Location adress: ";
-	//cout << location;
-	//cout << '\n';
-
 	if (location->LookForExit(direction, nextRoom))
 	{
-		//cout << "Next room returned with adress:";
-		//cout << nextRoom;
-		//cout << '\n';
-
+		if (this->type != PLAYER)
+		{
+			if (location->GetChildrenByType(PLAYER).size() > 0)
+			{
+				cout << name + " has exited the room\n";
+			}
+			else if (nextRoom->GetChildrenByType(PLAYER).size() > 0)
+			{
+				cout << name + " has entered the room\n";
+			}
+		}
 		ChangeParent(nextRoom);
 		valid = true;
-
-		cout << "Creature with name " + name + " move to " + nextRoom->name + '\n';
 	}
 	else
 	{
@@ -113,6 +113,7 @@ void Creature::Attack()
 		return;
 	}
 
+	cout << name + " attacks! ";
 	target->ReceiveAttack(attackDamage);
 	lastAttack = clock();
 }
@@ -128,7 +129,7 @@ void Creature::ReceiveAttack(int damage)
 	else
 	{
 		int damageToDeal = (damage - defense);
-		if (damageToDeal < 0) damageToDeal = 1;
+		if (damageToDeal <= 0) damageToDeal = 1;
 
 		currentHp -= damageToDeal;
 		if (currentHp < 0) currentHp = 0;

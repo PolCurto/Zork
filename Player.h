@@ -24,8 +24,10 @@ public:
 	void ModifyStats(Item* item, bool add);
 	void SetTarget(string targetName);
 	void Die();
+	bool IsLord();
 
 private:
+	bool isLord;
 };
 
 #endif

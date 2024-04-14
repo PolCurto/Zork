@@ -11,7 +11,7 @@ Npc::Npc(const string name, const string description, Room* location, int hp, in
 	{
 		this->phrases[i] = phrases[i];
 	}
-	timeToMove = rand() % (2000 - 1000 + 1) + 1000;
+	timeToMove = rand() % (20000 - 10000 + 1) + 10000;
 }
 
 void Npc::Tick()
@@ -22,7 +22,7 @@ void Npc::Tick()
 
 	if (!isInCombat && clock() - lastMoveTime > timeToMove)
 	{
-		timeToMove = rand() % (2000 - 1000 + 1) + 1000;
+		timeToMove = rand() % (20000 - 10000 + 1) + 10000;
 		lastMoveTime = clock();
 		Move();
 	}

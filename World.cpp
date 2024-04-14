@@ -7,40 +7,62 @@
 World::World()
 {
 	// Rooms and exits
-	Room* startingRoom = new Room("Entrance", "A monumental iron door. Gives you the chills");
+	Room* entrance = new Room("Entrance", "A monumental iron door. Gives you the chills");
 	Room* forest = new Room("Dark forest", "You have never seen such an amount of trees together");
-	entities.push_back(startingRoom);
+	Exit* entranceToForest = new Exit("Green cave", "A rapid-changing mossy cave", entrance, forest, UP, DOWN);
+	entrance->AddChild(entranceToForest);
+	forest->AddChild(entranceToForest);
+	entities.push_back(entrance);
 	entities.push_back(forest);
+	entities.push_back(entranceToForest);
 
-	Exit* startToForest = new Exit("Green cave", "A rapid-changing mossy cave", startingRoom, forest, UP, DOWN);
-	startingRoom->AddChild(startToForest);
-	forest->AddChild(startToForest);
-	entities.push_back(startToForest);
+	Room* hall = new Room("Castle main room", "Darkness and creep everywhere the eye can reach");
+	Exit* entranceToHall = new Exit("Tight Corridors", "Better not be claustrophobic", entrance, hall, RIGHT, LEFT);
+	entrance->AddChild(entranceToHall);
+	hall->AddChild(entranceToHall);
+	entities.push_back(hall);
+	entities.push_back(entranceToHall);
 
-	Room* dungeon = new Room("Dungeon Main Hall", "Darkness and algo everywhere the eye can reach");
-	Exit* startToDungeon = new Exit("Tight Corridors", "Better not be claustrophobic", startingRoom, dungeon, RIGHT, LEFT);
-	startingRoom->AddChild(startToDungeon);
-	dungeon->AddChild(startToDungeon);
-	entities.push_back(dungeon);
-	entities.push_back(startToDungeon);
-
-	Room* chamber = new Room("King's Chamber", "The kingdom's mightiest treasures gathered in a single room");
-	Exit* dungeonToChamber = new Exit("Royal corridors", "You can smell the wealth of the place", dungeon, chamber, UP, DOWN);
+	Room* chamber = new Room("King's chamber", "The kingdom's mightiest treasures gathered in a single room");
+	Exit* hallToChamber = new Exit("Royal corridors", "You can smell the wealth of the place", hall, chamber, UP, DOWN);
 	Exit* chamberToForest = new Exit("Secret passage", "Can't build a castle without it's secret exit", chamber, forest, LEFT, RIGHT);
-	dungeon->AddChild(dungeonToChamber);
+	hall->AddChild(hallToChamber);
 	forest->AddChild(chamberToForest);
-	chamber->AddChild(dungeonToChamber);
+	chamber->AddChild(hallToChamber);
 	chamber->AddChild(chamberToForest);
 	entities.push_back(chamber);
-	entities.push_back(dungeonToChamber);
+	entities.push_back(hallToChamber);
 	entities.push_back(chamberToForest);
 
-	// Creatures
-	player = new Player("Godfrey", "The first Elden Lord", startingRoom, 100, 5, 2, 2, 1, 1);
-	startingRoom->AddChild(player);
+	Room* guest = new Room("Guest's room", "A place to rest for the lucky invited to the castle");
+	Exit* entranceToGuest = new Exit("Broken hallways", "A modest series of hallways, now infected by the rot", entrance, guest, DOWN, UP);
+	entrance->AddChild(entranceToGuest);
+	guest->AddChild(entranceToGuest);
+	entities.push_back(guest);
+	entities.push_back(entranceToGuest);
+
+	Room* lake = new Room("Poison lake", "This lake's precious water is long gone. Only filthy poison remains");
+	Exit* forestToLake = new Exit("Ogre's Swamp", "The legends says a green ogre lives in these lands", forest, lake, LEFT, RIGHT);
+	forest->AddChild(forestToLake);
+	lake->AddChild(forestToLake);
+	entities.push_back(lake);
+	entities.push_back(forestToLake);
+
+	Room* catacombs = new Room("Castle's catacombs", "Long ago it was a scary place. Now you wish it was only that");
+	Exit* hallToCatacombs = new Exit("Deep staircase", "What a thrill", hall, catacombs, RIGHT, LEFT);
+	hall->AddChild(hallToCatacombs);
+	catacombs->AddChild(hallToCatacombs);
+	entities.push_back(hall);
+	entities.push_back(catacombs);
+
+
+	/***Creatures***/
+	// Player
+	player = new Player("Godfrey", "The first Elden Lord", entrance, 10, 1, 1, 4, 1.5, 1);
+	entrance->AddChild(player);
 	entities.push_back(player);
 
-	
+	// Gideon
 	string phrases[4] = {
 		"Greetings " + player->name,
 		"How do I know you name? I know many things... heheheh...",
@@ -48,41 +70,64 @@ World::World()
 		"Be careful " + player->name + ", may we find each other again... or not..."
 	};
 
-	Npc* gideon = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, 10, 8, 1, 2, 2, phrases);
+	Npc* gideon = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, 10, 8, 1, 3, 3, phrases);
 	forest->AddChild(gideon);
 	entities.push_back(gideon);
 
+	// Malenia
 	phrases->clear();
 	phrases[0] = "You must be brave to talk to me, stranger";
 	phrases[1] = "This place is not even a glimpse of what it was in the golden days";
 	phrases[2] = "Take all the equipment you find, you will most likely need it";
 	phrases[3] = "See you again, fellow traveler";
 
-	Npc* malenia = new Npc("Malenia", "She has never known defeat", dungeon, 15, 4, 4, 4, 0.8, phrases);
-	dungeon->AddChild(malenia);
+	Npc* malenia = new Npc("Malenia", "She has never known defeat", hall, 15, 4, 4, 10, 0.8, phrases);
+	hall->AddChild(malenia);
 	entities.push_back(malenia);
 
+	// Jesse
+	phrases->clear();
+	phrases[0] = "You shouldn't be here";
+	phrases[1] = "Hell, I shouldn't be here either";
+	phrases[2] = "Fight me if you want, but don't regret later";
+	phrases[3] = "Go away";
+
+	Npc* jesse = new Npc("Jesse", "Has spent a lifetime in the catacombs. He has probably lost it by now. He also used to cook", catacombs, 20, 6, 5, 5, 1, phrases);
+	catacombs->AddChild(jesse);
+	entities.push_back(jesse);
+
 	// Items
-	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", startingRoom, 0, 20, 0, 0, 0, EQUIPMENT);
-	startingRoom->AddChild(sword);
+	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", entrance, 0, 6, 0, -1, 1.5, 0, EQUIPMENT);
+	entrance->AddChild(sword);
 	entities.push_back(sword);
 
-	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", forest, 0, 10, 10, 0, 0, EQUIPMENT);
+	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", forest, 5, 1, 3, 0, 0, 0, EQUIPMENT);
 	forest->AddChild(pearl);
 	entities.push_back(pearl);
 
-	Item* shield = new Item("Shield", "Can be used to take some hits, but won't last for long", dungeon, 0, 0, 20, 0, 0, EQUIPMENT);
-	dungeon->AddChild(shield);
+	Item* shield = new Item("Shield", "Can be used to take some hits, but won't last for long", hall, 0, 0, 6, -1, 0.5, 0, EQUIPMENT);
+	hall->AddChild(shield);
 	entities.push_back(sword);
 
-	Item* potion = new Item("Potion", "The king's last resource. Gives you a boost you have nefer experienced", chamber, 20, 20, 20, 20, 0, CONSUMABLE);
+	Item* potion = new Item("Potion", "The king's last resource. Gives you a boost you have nefer experienced", chamber, 10, 2, 2, 2, -0.2, 0, CONSUMABLE);
 	chamber->AddChild(potion);
 	entities.push_back(potion);
 
-	Item* bag = new Item("Bag", "A bag big enough to equip one more item", gideon, 0, 0, 0, 0, 1, CONSUMABLE);
+	Item* bag = new Item("Bag", "A bag big enough to equip one more item", gideon, 0, 0, 0, 0, 0, 1, CONSUMABLE);
 	gideon->AddChild(bag);
 	entities.push_back(bag);
-	
+
+	Item* dagger = new Item("Dagger", "A fast weapon built from prosthetic parts of a body. Malenia's favourite weapon", malenia, 0, 3, 0, 5, -0.5, 0, EQUIPMENT);
+	malenia->AddChild(dagger);
+	entities.push_back(dagger);
+
+	Item* boots = new Item("Boots", "Wind-enhanced boots to do everything faster", lake, 0, 0, 0, 5, -0.3, 0, EQUIPMENT);
+	lake->AddChild(boots);
+	entities.push_back(boots);
+
+	Item* star = new Item("Star", "A real star fallen from the sky. Consume it and become lord of a new era", jesse, 0, 0, 0, 0, 0, 0, CONSUMABLE);
+	jesse->AddChild(star);
+	entities.push_back(star);
 }
 
 void World::TickGame()
@@ -196,4 +241,9 @@ bool World::TranslateArgument(vector<string> argument)
 bool World::PlayerIsDead()
 {
 	return player->IsDead();
+}
+
+bool World::PlayerIsLord()
+{
+	return player->IsLord();
 }

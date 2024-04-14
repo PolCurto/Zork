@@ -15,7 +15,7 @@ class Item : public Entity
 {
 public:
 
-	Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility, int equipmentSlots, ItemType itemType);
+	Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots, ItemType itemType);
 	void Describe();
 	void ChangeParent(Entity* newParent);
 	ItemType GetItemType();
@@ -23,6 +23,7 @@ public:
 	int GetAttackDamage();
 	int GetDefense();
 	int GetAgility();
+	float GetAttackSpeed();
 	int GetEquipmentSlots();
 
 
@@ -33,6 +34,7 @@ private:
 	int attackDamage;
 	int defense;
 	int agility;
+	float attackSpeed;
 	int equipmentSlots;
 
 	ItemType itemType;

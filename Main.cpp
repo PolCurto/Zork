@@ -108,5 +108,9 @@ int main()
 			cout << "Game over\n";
 			break;
 		}
+		else if (world.PlayerIsLord())
+		{
+			cout << "Congratulations, you became the lord of a new era!\nThanks for playing\n";
+		}
 	}
 }
