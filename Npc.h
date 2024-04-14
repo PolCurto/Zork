@@ -22,7 +22,6 @@ private:
 	float lastMoveTime;
 	int timesTalked;
 	string phrases[4];
-
 };
 
 #endif 

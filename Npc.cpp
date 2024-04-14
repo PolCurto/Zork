@@ -11,7 +11,7 @@ Npc::Npc(const string name, const string description, Room* location, int hp, in
 	{
 		this->phrases[i] = phrases[i];
 	}
-	timeToMove = rand() % (20000 - 10000 + 1) + 10000;
+	timeToMove = rand() % (2000 - 1000 + 1) + 1000;
 }
 
 void Npc::Tick()
@@ -22,7 +22,7 @@ void Npc::Tick()
 
 	if (!isInCombat && clock() - lastMoveTime > timeToMove)
 	{
-		timeToMove = rand() % (20000 - 10000 + 1) + 10000;
+		timeToMove = rand() % (2000 - 1000 + 1) + 1000;
 		lastMoveTime = clock();
 		Move();
 	}
@@ -87,6 +87,19 @@ void Npc::Talk()
 
 void Npc::Die()
 {
-	cout << "You have slain " +  + '\n';
+	cout << "You have slain " + name + '\n';
+
+	list<Entity*> items = GetAllChildren();
+	list<Entity*>::iterator it;
+
+	for (it = items.begin(); it != items.end(); it++)
+	{
+		if ((*it)->type == ITEM)
+		{
+			MoveItem((*it), this, location);
+			cout << (*it)->name + " dropped from " + name + '\n';
+		}
+	}
+
 	Creature::Die();
 }

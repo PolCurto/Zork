@@ -19,8 +19,6 @@ void Item::Describe()
 
 void Item::ChangeParent(Entity* newParent)
 {
-	Entity* oldParent;
-
 	/*
 	cout << "Old parent children size: ";
 	cout << parent->GetAllChildren().size();
@@ -34,7 +32,6 @@ void Item::ChangeParent(Entity* newParent)
 	*/
 
 	parent->RemoveChild(this);
-	oldParent = parent;
 	parent = newParent;
 	newParent->AddChild(this);
 

@@ -2,6 +2,7 @@
 #include <vector>
 #include <conio.h>
 #include <string>
+#include <ctime>
 
 #include "World.h"
 #include "Utils.h"
@@ -19,8 +20,11 @@ int main()
 
 	World world;
 
-	clock_t time = clock();
+	clock_t timer = clock();
 	clock_t lastTick = 0;
+
+	// Seed the random numbers
+	srand((unsigned int)time(NULL));
 
 	cout << "Welcome to Zork! \n \n";
 	cout << "- ";
@@ -91,11 +95,11 @@ int main()
 			cout << "\n- ";
 		}
 
-		time = clock();
-		if (time - lastTick >= TICK_RATE)
+		timer = clock();
+		if (timer - lastTick >= TICK_RATE)
 		{
 			//cout << time;
-			lastTick = time;
+			lastTick = timer;
 			world.TickGame();
 		}
 

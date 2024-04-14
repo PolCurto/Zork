@@ -22,7 +22,7 @@ public:
 	void Attack();
 	void ReceiveAttack(int damage);
 	virtual void Die();
-	void MoveItem(const string itemName, Entity* item, Entity* oldParent, Entity* newParen);
+	bool MoveItem(Entity* item, Entity* oldParent, Entity* newParen);
 	void ChangeParent(Entity* newParent);
 	bool IsDead();
 

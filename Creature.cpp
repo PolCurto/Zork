@@ -79,39 +79,16 @@ void Creature::Talk()
 
 }
 
-void Creature::MoveItem(const string itemName, Entity* item, Entity* oldParent, Entity* newParent)
+bool Creature::MoveItem(Entity* item, Entity* oldParent, Entity* newParent)
 {
-	/*
-	cout << "Try to pick / drop item: ";
-	cout << itemName;
-	cout << " from / to ";
-	cout << oldParent->name + '\n';
-	*/
-
-	if (oldParent->TryGetChildByName(itemName, item) && item->type == ITEM)
+	if (newParent == item)
 	{
-		/*
-		cout << "New parent: ";
-		cout << newParent->name + '\n';
-		cout << "New item: ";
-		cout << item->name + '\n';
-		*/
-
-		if (newParent == item)
-		{
-			cout << "You can't place an item inside itself! That would bend the rules of the unverse\n";
-			return;
-		}
-
-		item->ChangeParent(newParent);
+		cout << "You can't place an item inside itself! That would bend the rules of the unverse\n";
+		return false;
 	}
-	else
-	{
-		cout << "There is no item called ";
-		cout << itemName;
-		cout << " in ";
-		cout << oldParent->name + '\n';
-	}
+
+	item->ChangeParent(newParent);
+	return true;
 }
 
 void Creature::SetTarget(Creature* target)
@@ -150,12 +127,15 @@ void Creature::ReceiveAttack(int damage)
 	}
 	else
 	{
-		currentHp -= (damage - defense);
+		int damageToDeal = (damage - defense);
+		if (damageToDeal < 0) damageToDeal = 1;
+
+		currentHp -= damageToDeal;
 		if (currentHp < 0) currentHp = 0;
 
 		cout << name + " received the attack! Damage dealt: ";
-		cout << (damage - defense);
-		cout << " current hp: ";
+		cout << damageToDeal;
+		cout << ". Current hp: ";
 		cout << currentHp;
 		cout << " / ";
 		cout << maxHp;

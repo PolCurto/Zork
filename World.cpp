@@ -35,6 +35,33 @@ World::World()
 	entities.push_back(dungeonToChamber);
 	entities.push_back(chamberToForest);
 
+	// Creatures
+	player = new Player("Godfrey", "The first Elden Lord", startingRoom, 100, 5, 2, 2, 1, 1);
+	startingRoom->AddChild(player);
+	entities.push_back(player);
+
+	
+	string phrases[4] = {
+		"Greetings " + player->name,
+		"How do I know you name? I know many things... heheheh...",
+		"I also know you are " + player->description,
+		"Be careful " + player->name + ", may we find each other again... or not..."
+	};
+
+	Npc* gideon = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, 10, 8, 1, 2, 2, phrases);
+	forest->AddChild(gideon);
+	entities.push_back(gideon);
+
+	phrases->clear();
+	phrases[0] = "You must be brave to talk to me, stranger";
+	phrases[1] = "This place is not even a glimpse of what it was in the golden days";
+	phrases[2] = "Take all the equipment you find, you will most likely need it";
+	phrases[3] = "See you again, fellow traveler";
+
+	Npc* malenia = new Npc("Malenia", "She has never known defeat", dungeon, 15, 4, 4, 4, 0.8, phrases);
+	dungeon->AddChild(malenia);
+	entities.push_back(malenia);
+
 	// Items
 	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", startingRoom, 0, 20, 0, 0, 0, EQUIPMENT);
 	startingRoom->AddChild(sword);
@@ -52,36 +79,9 @@ World::World()
 	chamber->AddChild(potion);
 	entities.push_back(potion);
 
-	Item* bag = new Item("Bag", "A bag big enough to equip one more item", forest, 0, 0, 0, 0, 1, CONSUMABLE);
-	forest->AddChild(bag);
+	Item* bag = new Item("Bag", "A bag big enough to equip one more item", gideon, 0, 0, 0, 0, 1, CONSUMABLE);
+	gideon->AddChild(bag);
 	entities.push_back(bag);
-
-	// Creatures
-	player = new Player("Godfrey", "The first Elden Lord", startingRoom, 10, 2, 2, 2, 1, 1);
-	startingRoom->AddChild(player);
-	entities.push_back(player);
-
-	
-	string phrases[4] = {
-		"Greetings " + player->name,
-		"How do I know you name? I know many things... heheheh...",
-		"I also know you are " + player->description,
-		"Be careful " + player->name + ", may we find each other again... or not..."
-	};
-
-	Npc* oldMan = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, 20, 8, 1, 2, 2, phrases);
-	forest->AddChild(oldMan);
-	entities.push_back(oldMan);
-
-	phrases->clear();
-	phrases[0] = "You must be brave to talk to me, stranger";
-	phrases[1] = "This place is not even a glimpse of what it was in the golden days";
-	phrases[2] = "Take all the equipment you find, you will most likely need it";
-	phrases[3] = "See you again, fellow traveler";
-
-	Npc* warrior = new Npc("Malenia", "She has never known defeat", dungeon, 15, 4, 4, 4, 0.8, phrases);
-	dungeon->AddChild(warrior);
-	entities.push_back(warrior);
 	
 }
 

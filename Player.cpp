@@ -123,7 +123,18 @@ void Player::PickItem(string itemName, string source)
 
 	Entity* item = 0;
 
-	MoveItem(itemName, item, oldParent, this);
+	if (oldParent->TryGetChildByName(itemName, item) && item->type == ITEM)
+	{
+		if (MoveItem(item, oldParent, this)) 
+			cout << "You picked " + item->name + " from " + oldParent->name + '\n';
+	}
+	else
+	{
+		cout << "There is no item called ";
+		cout << itemName;
+		cout << " in ";
+		cout << oldParent->name + '\n';
+	}
 }
 
 void Player::DropItem(string itemName, string destination)
@@ -152,7 +163,18 @@ void Player::DropItem(string itemName, string destination)
 
 	Entity* item = 0;
 
-	MoveItem(itemName, item, this, newParent);
+	if (this->TryGetChildByName(itemName, item) && item->type == ITEM)
+	{
+		if (MoveItem(item, this, newParent)) 
+			cout << "You dropped " + item->name + " into " + newParent->name + '\n';
+	}
+	else
+	{
+		cout << "There is no item called ";
+		cout << itemName;
+		cout << " in ";
+		cout << this->name + '\n';
+	}
 }
 
 void Player::Talk(string target)
@@ -295,8 +317,11 @@ void Player::ModifyStats(Item* item, bool add)
 
 void Player::SetTarget(string targetName)
 {
-	if (isDead)
+	if (isDead) return;
+	
+	if (isInCombat)
 	{
+		cout << "You are already fighting against " + target->name;
 		return;
 	}
 
