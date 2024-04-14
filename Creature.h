@@ -3,8 +3,8 @@
 #ifndef CREATURE_H
 #define CREATURE_H
 
-#include "Entity.h";
-#include "Room.h";
+#include "Entity.h"
+#include "Room.h"
 
 class Creature : public Entity
 {

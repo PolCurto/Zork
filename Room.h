@@ -3,8 +3,8 @@
 #ifndef ROOM_H
 #define ROOM_H
 
-#include "Entity.h";
-#include "Item.h";
+#include "Entity.h"
+#include "Item.h"
 
 class Room : public Entity
 {

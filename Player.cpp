@@ -188,7 +188,15 @@ void Player::AddEquipment(Item* item)
 {
 	if (equipment.size() < equipmentSlots)
 	{
-		equipment.push_back(item);
+		if (find(equipment.begin(), equipment.end(), item) != equipment.end())
+		{
+			cout << "You have already equipped " + item->name + '\n';
+			return;
+		}
+		else
+		{
+			equipment.push_back(item);
+		}
 
 		ModifyStats(item, true);
 		cout << "You equiped " + item->name + '\n';
@@ -201,8 +209,6 @@ void Player::AddEquipment(Item* item)
 
 void Player::UnEquip(string itemName)
 {
-	Entity* entity;
-
 	for (int i = 0; i < equipment.size(); i++)
 	{
 		if (equipment[i]->name.compare(itemName) == 0)

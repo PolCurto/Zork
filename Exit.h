@@ -3,7 +3,7 @@
 #ifndef EXIT_H
 #define EXIT_H
 
-#include "Entity.h";
+#include "Entity.h"
 #include "Room.h"
 
 enum ExitDirection
