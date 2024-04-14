@@ -1,12 +1,13 @@
 #include "Creature.h"
 
-Creature::Creature(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility) : Entity(name, description)
+Creature::Creature(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, int equipmentSlots) : Entity(name, description)
 {
 	this->location = location;
 	this->hp = hp;
 	this->attackDamage = attackDamage;
 	this->defense = defense;
 	this->agility = agility;
+	this->equipmentSlots = equipmentSlots;
 	this->type = CREATURE;
 }
 

@@ -8,8 +8,7 @@ using namespace std;
 #include <string>
 #include <list>
 #include <iostream>
-
-class Item;
+#include <vector>
 
 enum EntityType
 {

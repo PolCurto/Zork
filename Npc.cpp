@@ -1,7 +1,7 @@
 #include "Npc.h"
 
 Npc::Npc(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, string phrases[]) : 
-	Creature(name, description, location, hp, attackDamage, defense, agility)
+	Creature(name, description, location, hp, attackDamage, defense, agility, 1)
 {
 	this->type = NPC;
 

@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility) : Entity(name, description)
+Item::Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility, int equipmentSlots, ItemType itemType) : Entity(name, description)
 {
 	this->type = ITEM;
 	this->parent = parent;
@@ -8,6 +8,8 @@ Item::Item(const string name, const string description, Entity* parent, int hp, 
 	this->attackDamage = attackDamage;
 	this->defense = defense;
 	this->agility = agility;
+	this->equipmentSlots = equipmentSlots;
+	this->itemType = itemType;
 }
 
 void Item::Describe()
@@ -47,4 +49,34 @@ void Item::ChangeParent(Entity* newParent)
 	cout << newParent->GetAllChildren().size();
 	cout << '\n';
 	*/
+}
+
+ItemType Item::GetItemType()
+{
+	return this->itemType;
+}
+
+int Item::GetHp()
+{
+	return this->hp;
+}
+
+int Item::GetAttackDamage()
+{
+	return this->attackDamage;
+}
+
+int Item::GetDefense()
+{
+	return this->defense;
+}
+
+int Item::GetAgility()
+{
+	return this->agility;
+}
+
+int Item::GetEquipmentSlots()
+{
+	return this->equipmentSlots;
 }

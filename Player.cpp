@@ -1,9 +1,10 @@
 #include "Player.h"
 
-Player::Player(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility) :
-	Creature(name, description, location, hp, attackDamage, defense, agility)
+Player::Player(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, int equipmentSlots) :
+	Creature(name, description, location, hp, attackDamage, defense, agility, equipmentSlots)
 {
 	this->type = PLAYER;
+	this->equipmentSlots = 1;
 }
 
 void Player::SayHello()
@@ -38,6 +39,22 @@ void Player::Describe(string target)
 	else
 	{
 		cout << "I am " + name + ", " + description + '\n';
+		cout << "Stats:\n";
+		cout << "    HP: ";
+		cout << hp;
+		cout << '\n';
+		cout << "    Attack damage: ";
+		cout << attackDamage;
+		cout << '\n';
+		cout << "    Defense: ";
+		cout << defense;
+		cout << '\n';
+		cout << "    Agility: ";
+		cout << agility;
+		cout << '\n';
+		cout << "    Equipment slots: ";
+		cout << equipmentSlots;
+		cout << '\n';
 	}
 }
 
@@ -123,6 +140,8 @@ void Player::DropItem(string itemName, string destination)
 		}
 	}
 
+	UnEquip(itemName);
+
 	Entity* item = 0;
 
 	MoveItem(itemName, item, this, newParent);
@@ -140,5 +159,91 @@ void Player::Talk(string target)
 	else
 	{
 		cout << target + " is not in this room\n";
+	}
+}
+
+void Player::Equip(string itemName)
+{
+	Entity* entity;
+
+	if (TryGetChildByName(itemName, entity) && entity->type == ITEM)
+	{
+		Item* item = (Item*)entity;
+		if (item->GetItemType() == EQUIPMENT)
+		{
+			AddEquipment(item);
+		}
+		else
+		{
+			cout << "The item " + itemName + " can't be equiped!\n";
+		}
+	}
+	else
+	{
+		cout << "You don't have any item called " + itemName + '\n';
+	}
+}
+
+void Player::AddEquipment(Item* item)
+{
+	if (equipment.size() < equipmentSlots)
+	{
+		equipment.push_back(item);
+
+		hp += item->GetHp();
+		attackDamage += item->GetAttackDamage();
+		defense += item->GetDefense();
+		agility += item->GetAgility();
+		equipmentSlots += item->GetEquipmentSlots();
+
+		cout << "You equiped " + item->name + '\n';
+	}
+	else
+	{
+		cout << "Your equipment slots are full\n";
+	}
+}
+
+void Player::UnEquip(string itemName)
+{
+	Entity* entity;
+
+	for (int i = 0; i < equipment.size(); i++)
+	{
+		if (equipment[i]->name.compare(itemName) == 0)
+		{
+			hp -= equipment[i]->GetHp();
+			attackDamage -= equipment[i]->GetAttackDamage();
+			defense -= equipment[i]->GetDefense();
+			agility -= equipment[i]->GetAgility();
+			equipmentSlots -= equipment[i]->GetEquipmentSlots();
+
+			equipment.erase(next(equipment.begin(), i));
+			cout << "You unequiped " + itemName + '\n';
+			return;
+		}
+	}
+
+	cout << "You don't have any " + itemName + " equiped\n";
+
+}
+
+void Player::Use(string itemName)
+{
+
+}
+
+void Player::Equipment()
+{
+	if (equipment.size() < 1)
+	{
+		cout << "You have no items equiped\n";
+	}
+	else
+	{
+		for (int i = 0; i < equipment.size(); i++)
+		{
+			cout << equipment[i]->name + '\n';
+		}
 	}
 }

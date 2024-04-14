@@ -36,24 +36,28 @@ World::World()
 	entities.push_back(chamberToForest);
 
 	// Items
-	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", startingRoom, 0, 20, 0, 0);
+	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", startingRoom, 0, 20, 0, 0, 0, EQUIPMENT);
 	startingRoom->AddChild(sword);
 	entities.push_back(sword);
 
-	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", forest, 0, 10, 10, 0);
+	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", forest, 0, 10, 10, 0, 0, EQUIPMENT);
 	forest->AddChild(pearl);
 	entities.push_back(pearl);
 
-	Item* shield = new Item("Shield", "Can be used to take some hits, but won't last for long", dungeon, 0, 0, 20, 0);
+	Item* shield = new Item("Shield", "Can be used to take some hits, but won't last for long", dungeon, 0, 0, 20, 0, 0, EQUIPMENT);
 	dungeon->AddChild(shield);
 	entities.push_back(sword);
 
-	Item* potion = new Item("Potion", "The king's last resource. Gives you a boost you have nefer experienced", chamber, 20, 20, 20, 20);
+	Item* potion = new Item("Potion", "The king's last resource. Gives you a boost you have nefer experienced", chamber, 20, 20, 20, 20, 0, CONSUMABLE);
 	chamber->AddChild(potion);
 	entities.push_back(potion);
 
+	Item* bag = new Item("Bag", "A bag big enough to equip one more item", forest, 0, 0, 0, 0, 1, CONSUMABLE);
+	forest->AddChild(bag);
+	entities.push_back(bag);
+
 	// Creatures
-	player = new Player("Godfrey", "The first Elden Lord", startingRoom, 10, 2, 2, 2);
+	player = new Player("Godfrey", "The first Elden Lord", startingRoom, 10, 2, 2, 2, 1);
 	startingRoom->AddChild(player);
 	entities.push_back(player);
 
@@ -115,6 +119,11 @@ bool World::TranslateArgument(vector<string> argument)
 			player->Inventory();
 			exists = true;
 		}
+		else if (argument[0].compare("equipment") == 0 || argument[0].compare("Equipment") == 0)
+		{
+			player->Equipment();
+			exists = true;
+		}
 	}
 	else if (argument.size() == 2)
 	{
@@ -136,6 +145,16 @@ bool World::TranslateArgument(vector<string> argument)
 		else if (argument[0].compare("drop") == 0 || argument[0].compare("Drop") == 0)
 		{
 			player->DropItem(argument[1]);
+			exists = true;
+		}
+		else if (argument[0].compare("equip") == 0 || argument[0].compare("Equip") == 0)
+		{
+			player->Equip(argument[1]);
+			exists = true;
+		}
+		else if (argument[0].compare("unEquip") == 0 || argument[0].compare("UnEquip") == 0)
+		{
+			player->UnEquip(argument[1]);
 			exists = true;
 		}
 	}
