@@ -190,12 +190,7 @@ void Player::AddEquipment(Item* item)
 	{
 		equipment.push_back(item);
 
-		hp += item->GetHp();
-		attackDamage += item->GetAttackDamage();
-		defense += item->GetDefense();
-		agility += item->GetAgility();
-		equipmentSlots += item->GetEquipmentSlots();
-
+		ModifyStats(item, true);
 		cout << "You equiped " + item->name + '\n';
 	}
 	else
@@ -212,12 +207,7 @@ void Player::UnEquip(string itemName)
 	{
 		if (equipment[i]->name.compare(itemName) == 0)
 		{
-			hp -= equipment[i]->GetHp();
-			attackDamage -= equipment[i]->GetAttackDamage();
-			defense -= equipment[i]->GetDefense();
-			agility -= equipment[i]->GetAgility();
-			equipmentSlots -= equipment[i]->GetEquipmentSlots();
-
+			ModifyStats(equipment[i], false);
 			equipment.erase(next(equipment.begin(), i));
 			cout << "You unequiped " + itemName + '\n';
 			return;
@@ -230,7 +220,26 @@ void Player::UnEquip(string itemName)
 
 void Player::Use(string itemName)
 {
+	Entity* entity;
 
+	if (TryGetChildByName(itemName, entity) && entity->type == ITEM)
+	{
+		Item* item = (Item*)entity;
+		if (item->GetItemType() == CONSUMABLE)
+		{
+			ModifyStats(item, true);
+			RemoveChild(item);
+			item = NULL;
+		}
+		else
+		{
+			cout << "The item " + itemName + " can't be used!\n";
+		}
+	}
+	else
+	{
+		cout << "You don't have any item called " + itemName + '\n';
+	}
 }
 
 void Player::Equipment()
@@ -245,5 +254,25 @@ void Player::Equipment()
 		{
 			cout << equipment[i]->name + '\n';
 		}
+	}
+}
+
+void Player::ModifyStats(Item* item, bool add)
+{
+	if (add)
+	{
+		hp += item->GetHp();
+		attackDamage += item->GetAttackDamage();
+		defense += item->GetDefense();
+		agility += item->GetAgility();
+		equipmentSlots += item->GetEquipmentSlots();
+	}
+	else
+	{
+		hp -= item->GetHp();
+		attackDamage -= item->GetAttackDamage();
+		defense -= item->GetDefense();
+		agility -= item->GetAgility();
+		equipmentSlots -= item->GetEquipmentSlots();
 	}
 }

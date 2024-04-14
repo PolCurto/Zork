@@ -21,6 +21,7 @@ public:
 	void UnEquip(string itemName);
 	void Use(string item);
 	void Equipment();
+	void ModifyStats(Item* item, bool add);
 
 private:
 };

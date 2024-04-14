@@ -152,9 +152,14 @@ bool World::TranslateArgument(vector<string> argument)
 			player->Equip(argument[1]);
 			exists = true;
 		}
-		else if (argument[0].compare("unEquip") == 0 || argument[0].compare("UnEquip") == 0)
+		else if (argument[0].compare("unequip") == 0 || argument[0].compare("UnEquip") == 0)
 		{
 			player->UnEquip(argument[1]);
+			exists = true;
+		}
+		else if (argument[0].compare("use") == 0 || argument[0].compare("Use") == 0)
+		{
+			player->Use(argument[1]);
 			exists = true;
 		}
 	}
