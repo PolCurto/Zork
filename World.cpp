@@ -57,7 +57,7 @@ World::World()
 	entities.push_back(bag);
 
 	// Creatures
-	player = new Player("Godfrey", "The first Elden Lord", startingRoom, 10, 2, 2, 2, 1);
+	player = new Player("Godfrey", "The first Elden Lord", startingRoom, 10, 2, 2, 2, 1, 1);
 	startingRoom->AddChild(player);
 	entities.push_back(player);
 
@@ -69,7 +69,7 @@ World::World()
 		"Be careful " + player->name + ", may we find each other again... or not..."
 	};
 
-	Npc* oldMan = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, 4, 8, 1, 2, phrases);
+	Npc* oldMan = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, 20, 8, 1, 2, 2, phrases);
 	forest->AddChild(oldMan);
 	entities.push_back(oldMan);
 
@@ -79,7 +79,7 @@ World::World()
 	phrases[2] = "Take all the equipment you find, you will most likely need it";
 	phrases[3] = "See you again, fellow traveler";
 
-	Npc* warrior = new Npc("Malenia", "She has never known defeat", dungeon, 15, 4, 4, 4, phrases);
+	Npc* warrior = new Npc("Malenia", "She has never known defeat", dungeon, 15, 4, 4, 4, 0.8, phrases);
 	dungeon->AddChild(warrior);
 	entities.push_back(warrior);
 	
@@ -162,6 +162,11 @@ bool World::TranslateArgument(vector<string> argument)
 			player->Use(argument[1]);
 			exists = true;
 		}
+		else if (argument[0].compare("attack") == 0 || argument[0].compare("Attack") == 0)
+		{
+			player->SetTarget(argument[1]);
+			exists = true;
+		}
 	}
 	else if (argument.size() == 3)
 	{
@@ -186,4 +191,9 @@ bool World::TranslateArgument(vector<string> argument)
 	}
 
 	return exists;
+}
+
+bool World::PlayerIsDead()
+{
+	return player->IsDead();
 }

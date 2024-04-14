@@ -19,6 +19,7 @@ public:
 
 	void TickGame();
 	bool TranslateArgument(vector<string> argument);
+	bool PlayerIsDead();
 
 private:
 	vector<Entity*> entities;

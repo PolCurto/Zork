@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define TICK_RATE 500
+#define TICK_RATE 250
 
 int main()
 {
@@ -75,6 +75,7 @@ int main()
 		{
 			if (inputArgs[0].compare("quit") == 0)
 			{
+				cout << "You have quit the game. Thanks for playing\n";
 				break;
 			}
 			else
@@ -97,7 +98,11 @@ int main()
 			lastTick = time;
 			world.TickGame();
 		}
-	}
 
-	cout << "You have exited the game. Thanks for playing";
+		if (world.PlayerIsDead())
+		{
+			cout << "Game over\n";
+			break;
+		}
+	}
 }

@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, int equipmentSlots) :
-	Creature(name, description, location, hp, attackDamage, defense, agility, equipmentSlots)
+Player::Player(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots) :
+	Creature(name, description, location, hp, attackDamage, defense, agility, attackSpeed, equipmentSlots)
 {
 	this->type = PLAYER;
 	this->equipmentSlots = 1;
@@ -41,7 +41,9 @@ void Player::Describe(string target)
 		cout << "I am " + name + ", " + description + '\n';
 		cout << "Stats:\n";
 		cout << "    HP: ";
-		cout << hp;
+		cout << currentHp;
+		cout << " / ";
+		cout << maxHp;
 		cout << '\n';
 		cout << "    Attack damage: ";
 		cout << attackDamage;
@@ -78,6 +80,12 @@ void Player::Inventory()
 // Moves to the given direction
 void Player::Move(string direction)
 {
+	if (isInCombat)
+	{
+		cout << "You can't move while in combat!\n";
+		return;
+	}
+
 	bool isValid;
 	Creature::Move(direction, isValid);
 
@@ -267,7 +275,8 @@ void Player::ModifyStats(Item* item, bool add)
 {
 	if (add)
 	{
-		hp += item->GetHp();
+		maxHp += item->GetHp();
+		currentHp += item->GetHp();
 		attackDamage += item->GetAttackDamage();
 		defense += item->GetDefense();
 		agility += item->GetAgility();
@@ -275,10 +284,50 @@ void Player::ModifyStats(Item* item, bool add)
 	}
 	else
 	{
-		hp -= item->GetHp();
+		maxHp -= item->GetHp();
+		currentHp -= item->GetHp();
 		attackDamage -= item->GetAttackDamage();
 		defense -= item->GetDefense();
 		agility -= item->GetAgility();
 		equipmentSlots -= item->GetEquipmentSlots();
 	}
+}
+
+void Player::SetTarget(string targetName)
+{
+	if (isDead)
+	{
+		return;
+	}
+
+	Entity* entity;
+
+	if (location->TryGetChildByName(targetName, entity) && entity->type == NPC)
+	{
+		Creature* creature = (Creature*)entity;
+
+		if (creature->IsDead())
+		{
+			cout << "Not my hobby to attack the dead";
+		}
+		else
+		{
+			lastAttack = clock();
+			this->target = creature;
+			cout << "Target set\n";
+			isInCombat = true;
+
+			this->target->SetTarget(this);
+		}
+	}
+	else
+	{
+		cout << "There is no one called " + targetName + " in this room\n";
+	}
+}
+
+void Player::Die()
+{
+	cout << "You have died fighting against " + target->name + '\n';
+	Creature::Die();
 }

@@ -7,7 +7,7 @@ class Player : public Creature
 {
 public:
 
-	Player(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, int equipmentSlots);
+	Player(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots);
 
 	void SayHello();
 	void Describe(string target = "");
@@ -22,6 +22,8 @@ public:
 	void Use(string item);
 	void Equipment();
 	void ModifyStats(Item* item, bool add);
+	void SetTarget(string targetName);
+	void Die();
 
 private:
 };

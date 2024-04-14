@@ -1,7 +1,7 @@
 #include "Npc.h"
 
-Npc::Npc(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, string phrases[]) : 
-	Creature(name, description, location, hp, attackDamage, defense, agility, 1)
+Npc::Npc(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, string phrases[]) :
+	Creature(name, description, location, hp, attackDamage, defense, agility, attackSpeed, 1)
 {
 	this->type = NPC;
 
@@ -16,7 +16,11 @@ Npc::Npc(const string name, const string description, Room* location, int hp, in
 
 void Npc::Tick()
 {
-	if (clock() - lastMoveTime > timeToMove)
+	if (isDead) return;
+
+	Creature::Tick();
+
+	if (!isInCombat && clock() - lastMoveTime > timeToMove)
 	{
 		timeToMove = rand() % (20000 - 10000 + 1) + 10000;
 		lastMoveTime = clock();
@@ -26,11 +30,20 @@ void Npc::Tick()
 
 void Npc::Describe()
 {
-	cout << "You can see someone. It is " + name + ". " + description + '\n';
+	if (isDead)
+	{
+		cout << "You can see the corpse of: " + name + " rotting in the ground\n";
+	}
+	else
+	{
+		cout << "You can see someone. It is " + name + ". " + description + '\n';
+	}
 }
 
 void Npc::Move()
 {
+	if (isInCombat) return;
+
 	//Triar direcció
 	list<string> directions = location->GetExitDirections();
 	list<string>::iterator it = directions.begin();
@@ -44,6 +57,19 @@ void Npc::Move()
 
 void Npc::Talk()
 {
+	if (isDead)
+	{
+		cout << "Corpses do not talk";
+		return;
+	}
+
+	if (isInCombat)
+	{
+		cout << name + ":\n    - ";
+		cout << "mmph... gnygh... uurff...\n";
+		return;
+	}
+
 	// Stay for longer if talked to
 	lastMoveTime = clock();
 
@@ -57,4 +83,10 @@ void Npc::Talk()
 	{
 		timesTalked = 1;
 	}
+}
+
+void Npc::Die()
+{
+	cout << "You have slain " +  + '\n';
+	Creature::Die();
 }
