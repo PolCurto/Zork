@@ -38,21 +38,6 @@ int main()
 		{
 			keyValue = _getch();
 			
-			/*
-			if (keyValue == '\b')
-			{
-				// Create the string with the input while there are characters
-				if (input.length() > 0)
-				{
-					input.pop_back();
-					//cout << BACKSPACE;
-					cout << '\b';
-					cout << " ";
-					//cout << '\b';
-				}
-			}
-			*/
-			
 			if (keyValue != '\r')
 			{
 				// Concat the charactars in the input string
@@ -64,20 +49,12 @@ int main()
 				// When enter is pressed, separates the input arguments by the blank spaces
 				inputArgs = ParseString(input, ' ');
 				cout << "\n\n";
-				/*
-				cout << "\n\nIntroduced command: ";
-				for (string str : inputArgs)
-				{
-					cout << str + " ";
-				}
-				cout << "\n";
-				*/
 			}
 		}
 
 		if (inputArgs.size() > 0)
 		{
-			if (inputArgs[0].compare("quit") == 0)
+			if (inputArgs[0].compare("quit") == 0)	// Quits the game
 			{
 				cout << "You have quit the game. Thanks for playing\n";
 				break;
@@ -111,6 +88,7 @@ int main()
 		else if (world.PlayerIsLord())
 		{
 			cout << "Congratulations, you became the lord of a new era!\nThanks for playing\n";
+			break;
 		}
 	}
 }

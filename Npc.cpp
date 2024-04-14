@@ -14,6 +14,9 @@ Npc::Npc(const string name, const string description, Room* location, int hp, in
 	timeToMove = rand() % (20000 - 10000 + 1) + 10000;
 }
 
+/*
+* Moves around every x seconds if it is not in combat
+*/
 void Npc::Tick()
 {
 	if (isDead) return;
@@ -28,11 +31,15 @@ void Npc::Tick()
 	}
 }
 
+/*
+* Prints the name and the description of the npc. If the npc is dead the
+* message is modified
+*/
 void Npc::Describe()
 {
 	if (isDead)
 	{
-		cout << "You can see the corpse of: " + name + " rotting in the ground\n";
+		cout << "You can see the corpse of " + name + " rotting in the ground\n";
 	}
 	else
 	{
@@ -40,6 +47,10 @@ void Npc::Describe()
 	}
 }
 
+/*
+* If not in combat, picks a random direction from the available ones and moves
+* in that direction
+*/
 void Npc::Move()
 {
 	if (isInCombat) return;
@@ -55,6 +66,10 @@ void Npc::Move()
 	Creature::Move((*it), isValid);
 }
 
+/*
+* Prints a dialogue phrase, depending on the amount of times the npc has already 
+* talked. If dead or in combat, the phrase is modified
+*/
 void Npc::Talk()
 {
 	if (isDead)
@@ -85,6 +100,9 @@ void Npc::Talk()
 	}
 }
 
+/*
+* Drops all the items to the current room and dies
+*/
 void Npc::Die()
 {
 	cout << "You have slain " + name + '\n';

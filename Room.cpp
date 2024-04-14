@@ -6,23 +6,22 @@ Room::Room(const string name, const string description) : Entity(name, descripti
 
 }
 
+/*
+* Prints the room's name and description
+*/
 void Room::Describe()
 {
 	cout << "You are in " + name + ". " + description + '\n';
 }
 
+/*
+* Checks if an exit exists in the given direction. If it does, stores
+* the room it connects to in a referenced variable
+*/
 bool Room::LookForExit(string direction, Entity* &nextRoom)
 {
-	//cout << "This adress: ";
-	//cout << this;
-	//cout << '\n';
-
 	list<Entity*> exits = GetChildrenByType(EXIT);
 	list<Entity*>::iterator it;
-
-	//cout << "Exits length: ";
-	//cout << exits.size();
-	//cout << '\n';
 
 	for (it = exits.begin(); it != exits.end(); it++)
 	{
@@ -30,13 +29,7 @@ bool Room::LookForExit(string direction, Entity* &nextRoom)
 
 		if (exit->IsValidDirection(direction, this))
 		{
-			//cout << "Valid direction\n";
 			nextRoom = exit->GetLinkedRoom(this);
-
-			//cout << "Next room adress: ";
-			//cout << nextRoom->name;
-			//cout << '\n';
-
 			return true;
 		}
 	}
@@ -44,6 +37,9 @@ bool Room::LookForExit(string direction, Entity* &nextRoom)
 	return false;
 }
 
+/*
+* Gets all the available exit directions from this room
+*/
 list<string> Room::GetExitDirections()
 {
 	list<string> directions;

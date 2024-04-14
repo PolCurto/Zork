@@ -13,11 +13,17 @@ Item::Item(const string name, const string description, Entity* parent, int hp, 
 	this->itemType = itemType;
 }
 
+/*
+* Prints the item's name and description
+*/
 void Item::Describe()
 {
 	cout << name + ". " + description + '\n';
 }
 
+/*
+* Changes the item's parent to the given one, deleting itself from the old parent
+*/
 void Item::ChangeParent(Entity* newParent)
 {
 	parent->RemoveChild(this);

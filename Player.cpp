@@ -12,6 +12,10 @@ void Player::SayHello()
 	cout << "Hello master!\n";
 }
 
+/*
+* Prints the player's name and its stats. If given any more parameter, prints the
+* information of the room or the information of all the entities within it
+*/
 void Player::Describe(string target)
 {
 	if (target.length() > 0)
@@ -60,6 +64,9 @@ void Player::Describe(string target)
 	}
 }
 
+/*
+* Prints all the items the player has in its inventory
+*/
 void Player::Inventory()
 {
 	list<Entity*> playerInventory = GetAllChildren();
@@ -77,7 +84,9 @@ void Player::Inventory()
 	}
 }
 
-// Moves to the given direction
+/*
+* If not in combat, moves to the given direction and prints information about the new room
+*/
 void Player::Move(string direction)
 {
 	if (isInCombat)
@@ -99,6 +108,11 @@ void Player::Move(string direction)
 	}
 }
 
+/*
+* Checks if an item and a source with the given names exist. If they do,
+* tries to pick the item from the source and stores it in the player's inventory.
+* By default the source is the current room
+*/
 void Player::PickItem(string itemName, string source)
 {
 	Entity* oldParent;
@@ -137,6 +151,11 @@ void Player::PickItem(string itemName, string source)
 	}
 }
 
+/*
+* Checks if an item and a destination with the given names exist. If they do,
+* tries to drop the item to the destination and removes it from the player's inventory.
+* By default the destination is the current room
+*/
 void Player::DropItem(string itemName, string destination)
 {
 	Entity* newParent;
@@ -159,6 +178,7 @@ void Player::DropItem(string itemName, string destination)
 		}
 	}
 
+	// UnEquips the item to avoid duplications
 	UnEquip(itemName);
 
 	Entity* item = 0;
@@ -177,6 +197,9 @@ void Player::DropItem(string itemName, string destination)
 	}
 }
 
+/*
+* Checks if the target npc exists and talks to it
+*/
 void Player::Talk(string target)
 {
 	Entity* entity;
@@ -192,6 +215,10 @@ void Player::Talk(string target)
 	}
 }
 
+/*
+* Checks if the given item is within the player's inventory. If it is, tries
+* to equip it
+*/
 void Player::Equip(string itemName)
 {
 	Entity* entity;
@@ -199,7 +226,7 @@ void Player::Equip(string itemName)
 	if (TryGetChildByName(itemName, entity) && entity->type == ITEM)
 	{
 		Item* item = (Item*)entity;
-		if (item->GetItemType() == EQUIPMENT)
+		if (item->GetItemType() == EQUIPMENT)	// Only equips it if the item is of type equipment
 		{
 			AddEquipment(item);
 		}
@@ -214,11 +241,15 @@ void Player::Equip(string itemName)
 	}
 }
 
+/*
+* Adds the given item to the player equipped items, as long as it has free slots
+* and the item is not already equipped
+*/
 void Player::AddEquipment(Item* item)
 {
-	if (equipment.size() < equipmentSlots)
+	if (equipment.size() < equipmentSlots)    // Checks for the slots
 	{
-		if (find(equipment.begin(), equipment.end(), item) != equipment.end())
+		if (find(equipment.begin(), equipment.end(), item) != equipment.end())    // Checks if the item is already equipped
 		{
 			cout << "You have already equipped " + item->name + '\n';
 			return;
@@ -237,6 +268,10 @@ void Player::AddEquipment(Item* item)
 	}
 }
 
+/*
+* Checks if the player has the given item equipped. If it does,
+* removes it from the equipment slots
+*/
 void Player::UnEquip(string itemName)
 {
 	for (int i = 0; i < equipment.size(); i++)
@@ -254,6 +289,11 @@ void Player::UnEquip(string itemName)
 
 }
 
+/*
+* Checks if the given item is within the player's inventory. If it is, uses it,
+* removes it from the player's inventory and makes it point to null to prevent 
+* accessing to the item again
+*/
 void Player::Use(string itemName)
 {
 	Entity* entity;
@@ -263,7 +303,7 @@ void Player::Use(string itemName)
 		Item* item = (Item*)entity;
 		if (item->GetItemType() == CONSUMABLE)
 		{
-			if (item->name.compare("Star"))
+			if (item->name.compare("Star") == 0)    // If the item is the star, modifies a unique stat so the game ends
 			{
 				isLord = true;
 				return;
@@ -283,6 +323,9 @@ void Player::Use(string itemName)
 	}
 }
 
+/*
+* Prints all the items the player has currently equipped
+*/
 void Player::Equipment()
 {
 	if (equipment.size() < 1)
@@ -298,6 +341,11 @@ void Player::Equipment()
 	}
 }
 
+/*
+* Modifies the player's stats with the given item's stats. Also a bool
+* indicates whether the item is being equipped or unequipped to add or 
+* substract the stats
+*/
 void Player::ModifyStats(Item* item, bool add)
 {
 	if (add)
@@ -322,6 +370,12 @@ void Player::ModifyStats(Item* item, bool add)
 	}
 }
 
+/*
+* Checks if a npc with the given name exists in the current room. If it does,
+* sets it as the player's target and sets the player as the creature's target
+* to begin the combat.
+* If it is dead or already in combat with another creature returns
+*/
 void Player::SetTarget(string targetName)
 {
 	if (isDead) return;
@@ -358,6 +412,9 @@ void Player::SetTarget(string targetName)
 	}
 }
 
+/*
+* Prints the creature you died against and dies, ending the game in consequence
+*/
 void Player::Die()
 {
 	cout << "You have died fighting against " + target->name + '\n';

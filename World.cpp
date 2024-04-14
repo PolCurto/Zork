@@ -70,7 +70,7 @@ World::World()
 		"Be careful " + player->name + ", may we find each other again... or not..."
 	};
 
-	Npc* gideon = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, 10, 8, 1, 3, 3, phrases);
+	Npc* gideon = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, 15, 8, 1, 3, 3, phrases);
 	forest->AddChild(gideon);
 	entities.push_back(gideon);
 
@@ -81,7 +81,7 @@ World::World()
 	phrases[2] = "Take all the equipment you find, you will most likely need it";
 	phrases[3] = "See you again, fellow traveler";
 
-	Npc* malenia = new Npc("Malenia", "She has never known defeat", hall, 15, 4, 4, 10, 0.8, phrases);
+	Npc* malenia = new Npc("Malenia", "She has never known defeat", hall, 20, 5, 5, 20, 0.8, phrases);
 	hall->AddChild(malenia);
 	entities.push_back(malenia);
 
@@ -92,7 +92,7 @@ World::World()
 	phrases[2] = "Fight me if you want, but don't regret later";
 	phrases[3] = "Go away";
 
-	Npc* jesse = new Npc("Jesse", "Has spent a lifetime in the catacombs. He has probably lost it by now. He also used to cook", catacombs, 20, 6, 5, 5, 1, phrases);
+	Npc* jesse = new Npc("Jesse", "Has spent a lifetime in the catacombs. He has probably lost it by now. He also used to cook", catacombs, 30, 15, 10, 10, 1, phrases);
 	catacombs->AddChild(jesse);
 	entities.push_back(jesse);
 
@@ -109,13 +109,17 @@ World::World()
 	hall->AddChild(shield);
 	entities.push_back(sword);
 
-	Item* potion = new Item("Potion", "The king's last resource. Gives you a boost you have nefer experienced", chamber, 10, 2, 2, 2, -0.2, 0, CONSUMABLE);
+	Item* potion = new Item("Potion", "The king's last resource. Gives you a boost you have never experienced", chamber, 10, 2, 2, 2, -0.2, 0, CONSUMABLE);
 	chamber->AddChild(potion);
 	entities.push_back(potion);
 
-	Item* bag = new Item("Bag", "A bag big enough to equip one more item", gideon, 0, 0, 0, 0, 0, 1, CONSUMABLE);
-	gideon->AddChild(bag);
+	Item* bag = new Item("Bag", "A bag big enough to equip one more item", guest, 0, 0, 0, 0, 0, 1, CONSUMABLE);
+	guest->AddChild(bag);
 	entities.push_back(bag);
+
+	Item* arkanioxys = new Item("Arkanioxys", "An ancient drink that lets you equip more items because an ancient reason. Also makes you feel better overall", gideon, 5, 2, 2, 2, 0, 1, CONSUMABLE);
+	gideon->AddChild(arkanioxys);
+	entities.push_back(arkanioxys);
 
 	Item* dagger = new Item("Dagger", "A fast weapon built from prosthetic parts of a body. Malenia's favourite weapon", malenia, 0, 3, 0, 5, -0.5, 0, EQUIPMENT);
 	malenia->AddChild(dagger);
@@ -130,8 +134,10 @@ World::World()
 	entities.push_back(star);
 }
 
+
 void World::TickGame()
 {
+	// Ticks all existing entities
 	for (int i = 0; i < entities.size(); i++)
 	{
 		entities[i]->Tick();

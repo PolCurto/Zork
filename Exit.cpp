@@ -9,6 +9,10 @@ Exit::Exit(const string name, const string description, Room* source, Room* dest
 	this->backwardsDirection = backwardsDirection;
 }
 
+/*
+* Checks whether the given direction is valid or not, taking into account
+* the source room as it swaps the exit directions
+*/
 bool Exit::IsValidDirection(string direction, Room* source)
 {
 	if (direction.compare("up") == 0 || direction.compare("Up") == 0)
@@ -67,7 +71,9 @@ bool Exit::IsValidDirection(string direction, Room* source)
 	return false;
 }
 
-// Returns the room linked to the one given
+/*
+* Returns the room linked to the ongiven by value
+*/
 Entity* Exit::GetLinkedRoom(Entity* currentRoom)
 {
 	if (currentRoom == source)
@@ -84,6 +90,9 @@ Entity* Exit::GetLinkedRoom(Entity* currentRoom)
 	//cout << "It is nothing\n";
 }
 
+/*
+* Prints the exit name, description and the rooms it connects
+*/
 void Exit::Describe()
 {
 	cout << name;

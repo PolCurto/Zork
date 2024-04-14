@@ -39,7 +39,7 @@ public:
 	EntityType type;
 	string name;
 	string description;
-	list<Entity*> children;
+	list<Entity*> contains;
 };
 
 #endif
