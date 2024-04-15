@@ -2,16 +2,17 @@
 
 ## Table of contents
 1. [Introduction](#introduction)
-2. [General Explanation](#general-explanation)
+2. [General explanation](#general-explanation)
 3. [How to play](#how-to-play)
 4. [Guide to complete the game](#guide-to-complete-the-game)
-5. [Credits](#credits)
-6. [License](#license)
+5. [Extras](#extras)
+6. [Credits](#credits)
+7. [License](#license)
 
 ## Introduction
 This is a simple text-based game like Zork made entirely in C++. It has seven rooms the player can move through, items to be picked up and dropped, stats that can be modified by equipping or using the items you find, and NPCs that move around and can be interacted with.
 
-## General Explanation
+## General explanation
 The game consists in seven rooms, which are connected in the following way:
 
                   Poison lake--------Dark forest-------King's chamber
@@ -93,6 +94,9 @@ The NPCs are the following ones:
 * __Jesse__: Jesse starts in the Catacombs. He is the hardest NPC of the game. He tanks the most, deals the most damage and has the higher agility, although he attacks a little slower than Malenia. Fighting him from the start will result in an instant death, so better equip yourself all you can before fighting against him. He drops the *Star*.
 
 Pick up the *Star* after defeating **Jesse** and use it to finish the game.
+
+## Extras
+At first I had a little struggle to get the user input while keeping the code running so the NPCs can move around. The result works, but has some flaws, being the most important one that you can't properly delete what you have written. This way you have to write you commands without making any mistake so the game understands you, but apart from this works as expected.
 
 ## Credits
 Authors: Pol Curto
