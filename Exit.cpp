@@ -1,6 +1,6 @@
 #include "Exit.h"
 
-Exit::Exit(const string name, const string description, Room* source, Room* destination, const ExitDirection forwardDirection, const ExitDirection backwardsDirection) : 
+Exit::Exit(string name, string description, Room* source, Room* destination, const ExitDirection forwardDirection, const ExitDirection backwardsDirection) : 
 	Entity(name, description)
 {
 	this->source = source;
@@ -15,7 +15,7 @@ Exit::Exit(const string name, const string description, Room* source, Room* dest
 * Checks whether the given direction is valid or not, taking into account
 * the source room as it swaps the exit directions
 */
-bool Exit::IsValidDirection(string direction, Room* source)
+bool Exit::IsValidDirection(string direction, const Room* source) const
 {
 	if (direction.compare("up") == 0 || direction.compare("Up") == 0)
 	{
@@ -76,7 +76,7 @@ bool Exit::IsValidDirection(string direction, Room* source)
 /*
 * Returns the room linked to the ongiven by value
 */
-Entity* Exit::GetLinkedRoom(Entity* currentRoom)
+Entity* Exit::GetLinkedRoom(const Entity* currentRoom) const
 {
 	if (currentRoom == source)
 	{
@@ -91,7 +91,7 @@ Entity* Exit::GetLinkedRoom(Entity* currentRoom)
 /*
 * Prints the exit name, description and the rooms it connects
 */
-void Exit::Describe()
+void Exit::Describe() const
 {
 	cout << name;
 	cout << ". ";
@@ -101,23 +101,23 @@ void Exit::Describe()
 	cout << " with ";
 	cout << destination->name + '\n';
 }
-
-Room* Exit::GetSource()
+ 
+Room* Exit::GetSource() const
 {
 	return source;
 }
 
-Room* Exit::GetDestination()
+Room* Exit::GetDestination() const
 {
 	return destination;
 }
 
-ExitDirection Exit::GetForwardDirection()
+ExitDirection Exit::GetForwardDirection() const
 {
 	return forwardDirection;
 }
 
-ExitDirection Exit::GetBackwardsDirection()
+ExitDirection Exit::GetBackwardsDirection() const
 {
 	return backwardsDirection;
 }

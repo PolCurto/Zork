@@ -15,16 +15,16 @@ class Item : public Entity
 {
 public:
 
-	Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots, ItemType itemType);
-	void Describe();
+	Item(string name, string description, Entity* parent, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots, ItemType itemType);
+	void Describe() const;
 	void ChangeParent(Entity* newParent);
-	ItemType GetItemType();
-	int GetHp();
-	int GetAttackDamage();
-	int GetDefense();
-	int GetAgility();
-	float GetAttackSpeed();
-	int GetEquipmentSlots();
+	ItemType GetItemType() const;
+	int GetHp() const;
+	int GetAttackDamage() const;
+	int GetDefense() const;
+	int GetAgility() const;
+	float GetAttackSpeed() const;
+	int GetEquipmentSlots() const;
 
 
 private:

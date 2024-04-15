@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(const string name, const string description)
+Entity::Entity(string name, string description)
 {
 	this->name = name;
 	this->description = description;
@@ -11,7 +11,7 @@ void Entity::Tick()
 
 }
 
-void Entity::Describe()
+void Entity::Describe() const
 {
 	
 }
@@ -37,7 +37,7 @@ list<Entity*> Entity::GetChildrenByType(EntityType type)
 /*
 * Stores in a list all the entities the parent entity contains
 */
-list<Entity*> Entity::GetAllChildren()
+list<Entity*> Entity::GetAllChildren() const
 {
 	return contains;
 }

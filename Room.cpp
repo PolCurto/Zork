@@ -1,7 +1,8 @@
 #include "Room.h"
 #include "Exit.h"
 
-Room::Room(const string name, const string description) : Entity(name, description)
+Room::Room(string name, string description) : 
+	Entity(name, description)
 {
 
 }
@@ -9,7 +10,7 @@ Room::Room(const string name, const string description) : Entity(name, descripti
 /*
 * Prints the room's name and description
 */
-void Room::Describe()
+void Room::Describe() const
 {
 	cout << "You are in " + name + ". " + description + '\n';
 }

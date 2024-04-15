@@ -9,17 +9,17 @@ class Npc : public Creature
 {
 public:
 
-	Npc(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, string phrases[]);
+	Npc(string name, string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, string phrases[]);
 
 	void Tick();
-	void Describe();
+	void Describe() const;
 	void Move();
 	void Talk();
 	void Die();
 
 private:
-	float timeToMove;
-	float lastMoveTime;
+	int timeToMove;
+	clock_t lastMoveTime;
 	int timesTalked;
 	string phrases[4];
 };

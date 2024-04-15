@@ -24,13 +24,12 @@ class Entity
 {
 public:
 
-	Entity(const string name, const string description);
+	Entity(string name, string description);
 	virtual void Tick();
-	virtual void Describe();
-
+	virtual void Describe() const;
 	list<Entity*> GetChildrenByType(EntityType type);
-	list<Entity*> GetAllChildren();
-	bool TryGetChildByName(string name, Entity* &child);
+	list<Entity*> GetAllChildren() const;
+	bool TryGetChildByName(string name, Entity*& child);
 	void AddChild(Entity* newChild);
 	void RemoveChild(Entity* oldChild);
 	virtual void ChangeParent(Entity* newParent);

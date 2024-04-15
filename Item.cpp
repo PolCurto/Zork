@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots, ItemType itemType) : 
+Item::Item(string name, string description, Entity* parent, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots, ItemType itemType) : 
 	Entity(name, description)
 {
 	this->parent = parent;
@@ -18,7 +18,7 @@ Item::Item(const string name, const string description, Entity* parent, int hp, 
 /*
 * Prints the item's name and description
 */
-void Item::Describe()
+void Item::Describe() const
 {
 	cout << "Item named " + name + ". " + description + '\n';
 }
@@ -33,37 +33,37 @@ void Item::ChangeParent(Entity* newParent)
 	newParent->AddChild(this);
 }
 
-ItemType Item::GetItemType()
+ItemType Item::GetItemType() const
 {
 	return this->itemType;
 }
 
-int Item::GetHp()
+int Item::GetHp() const
 {
 	return this->hp;
 }
 
-int Item::GetAttackDamage()
+int Item::GetAttackDamage() const
 {
 	return this->attackDamage;
 }
 
-int Item::GetDefense()
+int Item::GetDefense() const
 {
 	return this->defense;
 }
 
-int Item::GetAgility()
+int Item::GetAgility() const
 {
 	return this->agility;
 }
 
-float Item::GetAttackSpeed()
+float Item::GetAttackSpeed() const
 {
 	return this->attackSpeed;
 }
 
-int Item::GetEquipmentSlots()
+int Item::GetEquipmentSlots() const
 {
 	return this->equipmentSlots;
 }

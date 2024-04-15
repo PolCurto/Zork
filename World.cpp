@@ -81,7 +81,7 @@ World::World()
 	phrases[2] = "Take all the equipment you find, you will most likely need it";
 	phrases[3] = "See you again, fellow traveler";
 
-	Npc* malenia = new Npc("Malenia", "She has never known defeat", hall, 20, 5, 5, 20, 0.8, phrases);
+	Npc* malenia = new Npc("Malenia", "She has never known defeat", hall, 20, 5, 5, 20, 0.8f, phrases);
 	hall->AddChild(malenia);
 	entities.push_back(malenia);
 
@@ -92,16 +92,16 @@ World::World()
 	phrases[2] = "Fight me if you want, but don't regret later";
 	phrases[3] = "Go away";
 
-	Npc* jesse = new Npc("Jesse", "Has spent a lifetime in the catacombs. He has probably lost it by now. He also used to cook", catacombs, 30, 15, 10, 10, 1, phrases);
+	Npc* jesse = new Npc("Jesse", "Has spent a lifetime in the catacombs. He has probably lost it by now. He also used to cook", catacombs, 30, 15, 8, 10, 1, phrases);
 	catacombs->AddChild(jesse);
 	entities.push_back(jesse);
 
 	/***Items***/
-	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", entrance, 0, 6, 0, -1, 1.5, 0, EQUIPMENT);
+	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", entrance, 0, 7, 0, -1, 1.5, 0, EQUIPMENT);
 	entrance->AddChild(sword);
 	entities.push_back(sword);
 
-	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", woods, 5, 1, 3, 0, 0, 0, EQUIPMENT);
+	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", woods, 5, 2, 3, 0, 0, 0, EQUIPMENT);
 	woods->AddChild(pearl);
 	entities.push_back(pearl);
 
@@ -109,7 +109,7 @@ World::World()
 	hall->AddChild(shield);
 	entities.push_back(sword);
 
-	Item* potion = new Item("Potion", "The king's last resource. Gives you a boost you have never experienced", chamber, 10, 2, 2, 2, -0.2, 0, CONSUMABLE);
+	Item* potion = new Item("Potion", "The king's last resource. Gives you a boost you have never experienced", chamber, 10, 2, 2, 2, -0.2f, 0, CONSUMABLE);
 	chamber->AddChild(potion);
 	entities.push_back(potion);
 
@@ -121,11 +121,11 @@ World::World()
 	gideon->AddChild(arkanioxys);
 	entities.push_back(arkanioxys);
 
-	Item* dagger = new Item("Dagger", "A fast weapon built from prosthetic parts of a body. Malenia's favourite weapon", malenia, 0, 3, 0, 5, -0.5, 0, EQUIPMENT);
+	Item* dagger = new Item("Dagger", "A fast weapon built from prosthetic parts of a body. Malenia's favourite weapon", malenia, 0, 5, 0, 5, -0.5, 0, EQUIPMENT);
 	malenia->AddChild(dagger);
 	entities.push_back(dagger);
 
-	Item* boots = new Item("Boots", "Wind-enhanced boots to do everything faster", lake, 0, 0, 0, 5, -0.3, 0, EQUIPMENT);
+	Item* boots = new Item("Boots", "Wind-enhanced boots to do everything faster", lake, 0, 0, 0, 5, -0.3f, 0, EQUIPMENT);
 	lake->AddChild(boots);
 	entities.push_back(boots);
 
@@ -244,12 +244,12 @@ bool World::TranslateArgument(vector<string> argument)
 	return exists;
 }
 
-bool World::PlayerIsDead()
+bool World::PlayerIsDead() const
 {
 	return player->IsDead();
 }
 
-bool World::PlayerIsLord()
+bool World::PlayerIsLord() const
 {
 	return player->IsLord();
 }

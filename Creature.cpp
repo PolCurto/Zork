@@ -1,6 +1,6 @@
 #include "Creature.h"
 
-Creature::Creature(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots) : 
+Creature::Creature(string name, string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots) : 
 	Entity(name, description)
 {
 	this->location = location;
@@ -37,7 +37,7 @@ void Creature::Tick()
 * Prints the name and the description of the creature. If the creature is dead the 
 * message is modified
 */
-void Creature::Describe()
+void Creature::Describe() const
 {
 	if (isDead)
 	{
@@ -96,7 +96,7 @@ void Creature::Talk()
 /*
 * Changes an item's parent, as lon as the given parent is not the item itself
 */
-bool Creature::MoveItem(Entity* item, Entity* oldParent, Entity* newParent)
+bool Creature::MoveItem(Entity* item, Entity* newParent)
 {
 	if (newParent == item)
 	{
@@ -197,7 +197,7 @@ void Creature::ChangeParent(Entity* newParent)
 	location->AddChild(this);
 }
 
-bool Creature::IsDead()
+bool Creature::IsDead() const
 {
 	return isDead;
 }

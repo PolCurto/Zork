@@ -10,8 +10,8 @@ class Room : public Entity
 {
 public:
 	
-	Room(const string name, const string description);
-	void Describe();
+	Room(string name, string description);
+	void Describe() const;
 	bool LookForExit(string direction, Entity* &nextRoom);
 	list<string> GetExitDirections();
 

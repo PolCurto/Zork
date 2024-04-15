@@ -18,14 +18,14 @@ class Exit : public Entity
 {
 public:
 
-	Exit(const string name, const string description, Room* source, Room* destination, const ExitDirection forwardDirection, const ExitDirection backwardsDirection);
-	bool IsValidDirection(string direction, Room* soruce);
-	Entity* GetLinkedRoom(Entity* currentRoom);
-	void Describe();
-	Room* GetSource();
-	Room* GetDestination();
-	ExitDirection GetForwardDirection();
-	ExitDirection GetBackwardsDirection();
+	Exit(string name, string description, Room* source, Room* destination, ExitDirection forwardDirection, ExitDirection backwardsDirection);
+	bool IsValidDirection(string direction, const Room* soruce) const;
+	Entity* GetLinkedRoom(const Entity* currentRoom) const;
+	void Describe() const;
+	Room* GetSource() const;
+	Room* GetDestination() const;
+	ExitDirection GetForwardDirection() const;
+	ExitDirection GetBackwardsDirection() const;
 
 private:
 	ExitDirection forwardDirection;

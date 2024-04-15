@@ -1,6 +1,6 @@
 #include "Npc.h"
 
-Npc::Npc(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, string phrases[]) :
+Npc::Npc(string name, string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, string phrases[]) :
 	Creature(name, description, location, hp, attackDamage, defense, agility, attackSpeed, 1)
 {
 	this->timesTalked = 0;
@@ -38,7 +38,7 @@ void Npc::Tick()
 * Prints the name and the description of the npc. If the npc is dead the
 * message is modified
 */
-void Npc::Describe()
+void Npc::Describe() const
 {
 	if (isDead)
 	{
@@ -116,7 +116,7 @@ void Npc::Die()
 	{
 		if ((*it)->type == ITEM)
 		{
-			MoveItem((*it), this, location);
+			MoveItem((*it), location);
 			cout << (*it)->name + " dropped from " + name + '\n';
 		}
 	}

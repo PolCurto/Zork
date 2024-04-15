@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots) :
+Player::Player(string name, string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots) :
 	Creature(name, description, location, hp, attackDamage, defense, agility, attackSpeed, equipmentSlots)
 {
 	this->equipmentSlots = 1;
@@ -9,7 +9,7 @@ Player::Player(const string name, const string description, Room* location, int 
 	this->type = PLAYER;
 }
 
-void Player::SayHello()
+void Player::SayHello() const
 {
 	cout << "Hello master!\n";
 }
@@ -18,7 +18,7 @@ void Player::SayHello()
 * Prints the player's name and its stats. If given any more parameter, prints the
 * information of the room or the information of all the entities within it
 */
-void Player::Describe(string target)
+void Player::Describe(string target) const
 {
 	if (target.length() > 0)
 	{
@@ -72,7 +72,7 @@ void Player::Describe(string target)
 /*
 * Prints all the items the player has in its inventory
 */
-void Player::CheckInventory()
+void Player::CheckInventory() const
 {
 	list<Entity*> playerInventory = GetAllChildren();
 
@@ -143,7 +143,7 @@ void Player::PickItem(string itemName, string source)
 
 	if (oldParent->TryGetChildByName(itemName, item) && item->type == ITEM)
 	{
-		if (MoveItem(item, oldParent, this)) 
+		if (MoveItem(item, this)) 
 			cout << "You picked " + item->name + " from " + oldParent->name + '\n';
 	}
 	else
@@ -188,7 +188,7 @@ void Player::DropItem(string itemName, string destination)
 
 	if (this->TryGetChildByName(itemName, item) && item->type == ITEM)
 	{
-		if (MoveItem(item, this, newParent)) 
+		if (MoveItem(item, newParent)) 
 			cout << "You dropped " + item->name + " into " + newParent->name + '\n';
 	}
 	else
@@ -203,7 +203,7 @@ void Player::DropItem(string itemName, string destination)
 /*
 * Checks if the target npc exists and talks to it
 */
-void Player::Talk(string target)
+void Player::Talk(string target) const
 {
 	Entity* entity;
 
@@ -331,7 +331,7 @@ void Player::Use(string itemName)
 /*
 * Prints all the items the player has currently equipped
 */
-void Player::CheckEquipment()
+void Player::CheckEquipment() const
 {
 	if (equipment.size() < 1)
 	{
@@ -351,7 +351,7 @@ void Player::CheckEquipment()
 * indicates whether the item is being equipped or unequipped to add or 
 * substract the stats
 */
-void Player::ModifyStats(Item* item, bool add)
+void Player::ModifyStats(const Item* item, bool add)
 {
 	if (add)
 	{
@@ -426,7 +426,7 @@ void Player::Die()
 	Creature::Die();
 }
 
-bool Player::IsLord()
+bool Player::IsLord() const
 {
 	return isLord;
 }

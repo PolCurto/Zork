@@ -10,10 +10,10 @@ class Creature : public Entity
 {
 public:
 	
-	Creature(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots);
+	Creature(string name, string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots);
 
 	virtual void Tick();
-	virtual void Describe();
+	virtual void Describe() const;
 	virtual void Move(string direction, bool &valid);
 	virtual void PickUp();
 	virtual void DropItem();
@@ -22,9 +22,9 @@ public:
 	void Attack();
 	void ReceiveAttack(int damage);
 	virtual void Die();
-	bool MoveItem(Entity* item, Entity* oldParent, Entity* newParen);
+	bool MoveItem(Entity* item, Entity* newParent);
 	void ChangeParent(Entity* newParent);
-	bool IsDead();
+	bool IsDead() const;
 
 
 protected:
