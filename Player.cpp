@@ -4,6 +4,8 @@ Player::Player(const string name, const string description, Room* location, int 
 	Creature(name, description, location, hp, attackDamage, defense, agility, attackSpeed, equipmentSlots)
 {
 	this->equipmentSlots = 1;
+
+	this->isLord = false;
 	this->type = PLAYER;
 }
 
@@ -57,6 +59,9 @@ void Player::Describe(string target)
 		cout << '\n';
 		cout << "    Agility: ";
 		cout << agility;
+		cout << '\n';
+		cout << "    Attack speed: ";
+		cout << attackSpeed;
 		cout << '\n';
 		cout << "    Equipment slots: ";
 		cout << equipmentSlots;
@@ -230,7 +235,7 @@ void Player::Equip(string itemName)
 		}
 		else
 		{
-			cout << "The item " + itemName + " can't be equiped!\n";
+			cout << "The item " + itemName + " can't be equipped!\n";
 		}
 	}
 	else
@@ -258,7 +263,7 @@ void Player::AddEquipment(Item* item)
 		}
 
 		ModifyStats(item, true);
-		cout << "You equiped " + item->name + '\n';
+		cout << "You equipped " + item->name + '\n';
 	}
 	else
 	{
@@ -278,12 +283,12 @@ void Player::UnEquip(string itemName)
 		{
 			ModifyStats(equipment[i], false);
 			equipment.erase(next(equipment.begin(), i));
-			cout << "You unequiped " + itemName + '\n';
+			cout << "You unequipped " + itemName + '\n';
 			return;
 		}
 	}
 
-	cout << "You don't have any " + itemName + " equiped\n";
+	cout << "You don't have any " + itemName + " equipped\n";
 
 }
 
@@ -309,6 +314,8 @@ void Player::Use(string itemName)
 			ModifyStats(item, true);
 			RemoveChild(item);
 			item = NULL;
+
+			cout << "You used " + itemName + '\n';
 		}
 		else
 		{
@@ -328,7 +335,7 @@ void Player::CheckEquipment()
 {
 	if (equipment.size() < 1)
 	{
-		cout << "You have no items equiped\n";
+		cout << "You have no items equipped\n";
 	}
 	else
 	{

@@ -24,9 +24,8 @@ public:
 
 private:
 	vector<Entity*> entities;
-
-	// Direct reference to the player so every time there is an input it is not needed to look for him in the entities vector
-	Player* player;
+	
+	Player* player;    // Direct reference to the player so every time there is an input it is not needed to look for him in the entities vector
 };
 
 #endif

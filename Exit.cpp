@@ -7,6 +7,7 @@ Exit::Exit(const string name, const string description, Room* source, Room* dest
 	this->destination = destination;
 	this->forwardDirection = forwardDirection;
 	this->backwardsDirection = backwardsDirection;
+
 	this->type = EXIT;
 }
 

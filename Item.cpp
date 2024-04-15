@@ -11,6 +11,7 @@ Item::Item(const string name, const string description, Entity* parent, int hp, 
 	this->attackSpeed = attackSpeed;
 	this->equipmentSlots = equipmentSlots;
 	this->itemType = itemType;
+
 	this->type = ITEM;
 }
 

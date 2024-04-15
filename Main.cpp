@@ -8,10 +8,9 @@
 
 using namespace std;
 
-#define TICK_RATE 250
-
 int main()
 {
+	int tickRate = 250;
 	int keyCode;
 	char keyValue;
 	string input;
@@ -22,8 +21,7 @@ int main()
 	clock_t timer = clock();
 	clock_t lastTick = 0;
 
-	// Seed the random numbers
-	srand((unsigned int)time(NULL));
+	srand((unsigned int)time(NULL));    // Seed the random numbers
 
 	cout << "Welcome to Zork! \n \n";
 	cout << "- ";
@@ -37,32 +35,29 @@ int main()
 		{
 			keyValue = _getch();
 			
-			if (keyValue != '\r')
+			if (keyValue == '\r')
+			{
+				// When enter is pressed, separates the input arguments by the blank spaces
+				char separator = ' ';
+				size_t initialPos = 0;
+				size_t pos = input.find(separator);
+
+				while (pos != string::npos) {
+					inputArgs.push_back(input.substr(initialPos, pos - initialPos));
+					initialPos = pos + 1;
+
+					pos = input.find(separator, initialPos);
+				}
+
+				inputArgs.push_back(input.substr(initialPos, min(pos, input.size()) - initialPos));
+
+				cout << "\n\n";
+			}
+			else
 			{
 				// Concat the charactars in the input string
 				input += keyValue;
 				cout << keyValue;
-			}
-			else
-			{
-				// When enter is pressed, separates the input arguments by the blank spaces
-				const char* str = input.c_str();
-				string argument;
-
-				do
-				{
-					while (*str != ' ' && *str)
-					{
-						argument += *str;
-						str++;
-					}
-
-					inputArgs.push_back(argument);
-					argument = "";
-				} 
-				while (*str++);
-
-				cout << "\n\n";
 			}
 		}
 
@@ -81,15 +76,15 @@ int main()
 				}	
 			}
 
+			cout << "\n- ";
 			inputArgs.clear();
 			input = "";
-			cout << "\n- ";
 		}
 
 		timer = clock();
-		if (timer - lastTick >= TICK_RATE)
+
+		if (timer - lastTick >= tickRate)
 		{
-			//cout << time;
 			lastTick = timer;
 			world.TickGame();
 		}

@@ -11,6 +11,11 @@ Creature::Creature(const string name, const string description, Room* location, 
 	this->agility = agility;
 	this->attackSpeed = attackSpeed;
 	this->equipmentSlots = equipmentSlots;
+
+	this->isDead = false;
+	this->isInCombat = false;
+	this->lastAttack = 0;
+	this->target = NULL;
 	this->type = CREATURE;
 }
 

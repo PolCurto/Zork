@@ -3,6 +3,9 @@
 Npc::Npc(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, string phrases[]) :
 	Creature(name, description, location, hp, attackDamage, defense, agility, attackSpeed, 1)
 {
+	this->timesTalked = 0;
+	this->timeToMove = 0;
+	this->lastMoveTime = 0;
 	this->type = NPC;
 
 	int size = sizeof(this->phrases) / sizeof(string);
