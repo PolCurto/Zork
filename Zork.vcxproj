@@ -146,7 +146,6 @@
     <ClInclude Include="Npc.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
-    <ClInclude Include="Utils.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +157,6 @@
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
-    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

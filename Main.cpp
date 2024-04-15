@@ -5,7 +5,6 @@
 #include <ctime>
 
 #include "World.h"
-#include "Utils.h"
 
 using namespace std;
 
@@ -47,7 +46,22 @@ int main()
 			else
 			{
 				// When enter is pressed, separates the input arguments by the blank spaces
-				inputArgs = ParseString(input, ' ');
+				const char* str = input.c_str();
+				string argument;
+
+				do
+				{
+					while (*str != ' ' && *str)
+					{
+						argument += *str;
+						str++;
+					}
+
+					inputArgs.push_back(argument);
+					argument = "";
+				} 
+				while (*str++);
+
 				cout << "\n\n";
 			}
 		}
@@ -56,7 +70,7 @@ int main()
 		{
 			if (inputArgs[0].compare("quit") == 0)	// Quits the game
 			{
-				cout << "You have quit the game. Thanks for playing\n";
+				cout << "You have quit the game. Thanks for playing\nPress any key to close the window... ";
 				break;
 			}
 			else
@@ -82,13 +96,19 @@ int main()
 
 		if (world.PlayerIsDead())
 		{
-			cout << "Game over\n";
+			cout << "Game over\nPress any key to close the window...";
 			break;
 		}
 		else if (world.PlayerIsLord())
 		{
-			cout << "Congratulations, you became the lord of a new era!\nThanks for playing\n";
+			cout << "Congratulations, you became the lord of a new era!\nThanks for playing\nPress any key to close the window...";
 			break;
 		}
+	}
+
+	while (true)
+	{
+		if (_kbhit() != 0)	// Close the game when any key is pressed
+			break;
 	}
 }
