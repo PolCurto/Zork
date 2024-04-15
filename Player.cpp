@@ -3,8 +3,8 @@
 Player::Player(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots) :
 	Creature(name, description, location, hp, attackDamage, defense, agility, attackSpeed, equipmentSlots)
 {
-	this->type = PLAYER;
 	this->equipmentSlots = 1;
+	this->type = PLAYER;
 }
 
 void Player::SayHello()
@@ -67,7 +67,7 @@ void Player::Describe(string target)
 /*
 * Prints all the items the player has in its inventory
 */
-void Player::Inventory()
+void Player::CheckInventory()
 {
 	list<Entity*> playerInventory = GetAllChildren();
 
@@ -124,7 +124,6 @@ void Player::PickItem(string itemName, string source)
 	}
 	else
 	{
-		cout << "Item from source\n";
 		// If source is given, picks the item fron another item the player already has
 		if (!TryGetChildByName(source, oldParent))
 		{
@@ -162,13 +161,12 @@ void Player::DropItem(string itemName, string destination)
 
 	if (destination == "")
 	{
-		// If no source is given, by default picks the item from the current room
+		// If no destination is given, by default drops the item to the current room
 		newParent = location;
 	}
 	else
 	{
-		cout << "Item to source\n";
-		// If source is given, drops the item to another item the player already has
+		// If destination is given, drops the item to another item the player already has
 		if (!TryGetChildByName(destination, newParent))
 		{
 			cout << "The destination ";
@@ -326,7 +324,7 @@ void Player::Use(string itemName)
 /*
 * Prints all the items the player has currently equipped
 */
-void Player::Equipment()
+void Player::CheckEquipment()
 {
 	if (equipment.size() < 1)
 	{

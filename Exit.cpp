@@ -1,12 +1,13 @@
 #include "Exit.h"
 
-Exit::Exit(const string name, const string description, Room* source, Room* destination, const ExitDirection forwardDirection, const ExitDirection backwardsDirection) : Entity(name, description)
+Exit::Exit(const string name, const string description, Room* source, Room* destination, const ExitDirection forwardDirection, const ExitDirection backwardsDirection) : 
+	Entity(name, description)
 {
-	this->type = EXIT;
 	this->source = source;
 	this->destination = destination;
 	this->forwardDirection = forwardDirection;
 	this->backwardsDirection = backwardsDirection;
+	this->type = EXIT;
 }
 
 /*
@@ -78,16 +79,12 @@ Entity* Exit::GetLinkedRoom(Entity* currentRoom)
 {
 	if (currentRoom == source)
 	{
-		//cout << "It is source\n";
 		return destination;
 	}
 	else
 	{
-		//cout << "It is destination\n";
 		return source;
 	}
-
-	//cout << "It is nothing\n";
 }
 
 /*

@@ -11,7 +11,7 @@ public:
 
 	void SayHello();
 	void Describe(string target = "");
-	void Inventory();
+	void CheckInventory();
 	void Move(string direction);
 	void PickItem(string item, string source = "");
 	void DropItem(string item, string destination = "");
@@ -20,7 +20,7 @@ public:
 	void AddEquipment(Item* item);
 	void UnEquip(string itemName);
 	void Use(string item);
-	void Equipment();
+	void CheckEquipment();
 	void ModifyStats(Item* item, bool add);
 	void SetTarget(string targetName);
 	void Die();

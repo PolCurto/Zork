@@ -1,6 +1,7 @@
 #include "Creature.h"
 
-Creature::Creature(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots) : Entity(name, description)
+Creature::Creature(const string name, const string description, Room* location, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots) : 
+	Entity(name, description)
 {
 	this->location = location;
 	this->maxHp = hp;

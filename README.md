@@ -86,7 +86,7 @@ There are different types of equipment, some give small boosts while others boos
 Once you have equipped yourself with the chosen items, it would be time to go after the NPCs and get their drops.
 
 The NPCs are the following ones:
-* __Gideon__: Gideon starts in the forest. He is the weakest NPC. Deals a huge amount of damage, but attacks very slowly and has little life and defense. He also drops a consumable that increases a bit all your stats and adds an equipment slot.
+* __Gideon__: Gideon starts in the Dark woods. He is the weakest NPC. Deals a huge amount of damage, but attacks very slowly and has little life and defense. He also drops a consumable that increases a bit all your stats and adds an equipment slot.
 
 * __Malenia__: Malenia starts in the Castle's main room. She is in the middle way between Gideon and Jesse. She tanks some hits and attacks really quickly, dealing way more DPS than Gideon but less damage in each separated hit. She drops her weapon, which highly increases your attack speed and also boosts you agility. With this you should be ready to take on Jesse.
 

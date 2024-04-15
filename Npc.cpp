@@ -55,11 +55,10 @@ void Npc::Move()
 {
 	if (isInCombat) return;
 
-	//Triar direcció
 	list<string> directions = location->GetExitDirections();
 	list<string>::iterator it = directions.begin();
 
-	int directionIndex = rand() % ((directions.size()-1) + 1);
+	int directionIndex = rand() % ((directions.size() - 1) + 1);
 	advance(it, directionIndex);
 
 	bool isValid;

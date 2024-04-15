@@ -6,15 +6,15 @@
 
 World::World()
 {
-	// Rooms and exits
+	/***Rooms and exits***/
 	Room* entrance = new Room("Entrance", "A monumental iron door. Gives you the chills");
-	Room* forest = new Room("Dark forest", "You have never seen such an amount of trees together");
-	Exit* entranceToForest = new Exit("Green cave", "A rapid-changing mossy cave", entrance, forest, UP, DOWN);
-	entrance->AddChild(entranceToForest);
-	forest->AddChild(entranceToForest);
+	Room* woods = new Room("Dark woods", "You have never seen such an amount of trees together");
+	Exit* entranceToWoods = new Exit("Green cave", "A rapid-changing mossy cave", entrance, woods, UP, DOWN);
+	entrance->AddChild(entranceToWoods);
+	woods->AddChild(entranceToWoods);
 	entities.push_back(entrance);
-	entities.push_back(forest);
-	entities.push_back(entranceToForest);
+	entities.push_back(woods);
+	entities.push_back(entranceToWoods);
 
 	Room* hall = new Room("Castle main room", "Darkness and creep everywhere the eye can reach");
 	Exit* entranceToHall = new Exit("Tight Corridors", "Better not be claustrophobic", entrance, hall, RIGHT, LEFT);
@@ -25,14 +25,14 @@ World::World()
 
 	Room* chamber = new Room("King's chamber", "The kingdom's mightiest treasures gathered in a single room");
 	Exit* hallToChamber = new Exit("Royal corridors", "You can smell the wealth of the place", hall, chamber, UP, DOWN);
-	Exit* chamberToForest = new Exit("Secret passage", "Can't build a castle without it's secret exit", chamber, forest, LEFT, RIGHT);
+	Exit* chamberToWoods = new Exit("Secret passage", "Can't build a castle without it's secret exit", chamber, woods, LEFT, RIGHT);
 	hall->AddChild(hallToChamber);
-	forest->AddChild(chamberToForest);
+	woods->AddChild(chamberToWoods);
 	chamber->AddChild(hallToChamber);
-	chamber->AddChild(chamberToForest);
+	chamber->AddChild(chamberToWoods);
 	entities.push_back(chamber);
 	entities.push_back(hallToChamber);
-	entities.push_back(chamberToForest);
+	entities.push_back(chamberToWoods);
 
 	Room* guest = new Room("Guest's room", "A place to rest for the lucky invited to the castle");
 	Exit* entranceToGuest = new Exit("Broken hallways", "A modest series of hallways, now infected by the rot", entrance, guest, DOWN, UP);
@@ -42,11 +42,11 @@ World::World()
 	entities.push_back(entranceToGuest);
 
 	Room* lake = new Room("Poison lake", "This lake's precious water is long gone. Only filthy poison remains");
-	Exit* forestToLake = new Exit("Ogre's Swamp", "The legends says a green ogre lives in these lands", forest, lake, LEFT, RIGHT);
-	forest->AddChild(forestToLake);
-	lake->AddChild(forestToLake);
+	Exit* woodsToLake = new Exit("Ogre's Swamp", "The legends says a green ogre lives in these lands", woods, lake, LEFT, RIGHT);
+	woods->AddChild(woodsToLake);
+	lake->AddChild(woodsToLake);
 	entities.push_back(lake);
-	entities.push_back(forestToLake);
+	entities.push_back(woodsToLake);
 
 	Room* catacombs = new Room("Castle's catacombs", "Long ago it was a scary place. Now you wish it was only that");
 	Exit* hallToCatacombs = new Exit("Deep staircase", "What a thrill", hall, catacombs, RIGHT, LEFT);
@@ -70,8 +70,8 @@ World::World()
 		"Be careful " + player->name + ", may we find each other again... or not..."
 	};
 
-	Npc* gideon = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", forest, 15, 8, 1, 3, 3, phrases);
-	forest->AddChild(gideon);
+	Npc* gideon = new Npc("Gideon", "His knowledge of the world is beyond human comprehension", woods, 15, 8, 1, 3, 3, phrases);
+	woods->AddChild(gideon);
 	entities.push_back(gideon);
 
 	// Malenia
@@ -96,13 +96,13 @@ World::World()
 	catacombs->AddChild(jesse);
 	entities.push_back(jesse);
 
-	// Items
+	/***Items***/
 	Item* sword = new Item("Greatsword", "Better be strong to handle this blade", entrance, 0, 6, 0, -1, 1.5, 0, EQUIPMENT);
 	entrance->AddChild(sword);
 	entities.push_back(sword);
 
-	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", forest, 5, 1, 3, 0, 0, 0, EQUIPMENT);
-	forest->AddChild(pearl);
+	Item* pearl = new Item("Zenimyte", "Its magic powers everything in contact with its surface", woods, 5, 1, 3, 0, 0, 0, EQUIPMENT);
+	woods->AddChild(pearl);
 	entities.push_back(pearl);
 
 	Item* shield = new Item("Shield", "Can be used to take some hits, but won't last for long", hall, 0, 0, 6, -1, 0.5, 0, EQUIPMENT);
@@ -167,12 +167,12 @@ bool World::TranslateArgument(vector<string> argument)
 		}
 		else if (argument[0].compare("inventory") == 0 || argument[0].compare("Inventory") == 0)
 		{
-			player->Inventory();
+			player->CheckInventory();
 			exists = true;
 		}
 		else if (argument[0].compare("equipment") == 0 || argument[0].compare("Equipment") == 0)
 		{
-			player->Equipment();
+			player->CheckEquipment();
 			exists = true;
 		}
 	}

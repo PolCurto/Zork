@@ -1,8 +1,8 @@
 #include "Item.h"
 
-Item::Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots, ItemType itemType) : Entity(name, description)
+Item::Item(const string name, const string description, Entity* parent, int hp, int attackDamage, int defense, int agility, float attackSpeed, int equipmentSlots, ItemType itemType) : 
+	Entity(name, description)
 {
-	this->type = ITEM;
 	this->parent = parent;
 	this->hp = hp;
 	this->attackDamage = attackDamage;
@@ -11,6 +11,7 @@ Item::Item(const string name, const string description, Entity* parent, int hp, 
 	this->attackSpeed = attackSpeed;
 	this->equipmentSlots = equipmentSlots;
 	this->itemType = itemType;
+	this->type = ITEM;
 }
 
 /*
@@ -18,7 +19,7 @@ Item::Item(const string name, const string description, Entity* parent, int hp, 
 */
 void Item::Describe()
 {
-	cout << name + ". " + description + '\n';
+	cout << "Item named " + name + ". " + description + '\n';
 }
 
 /*

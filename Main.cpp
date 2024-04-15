@@ -111,4 +111,6 @@ int main()
 		if (_kbhit() != 0)	// Close the game when any key is pressed
 			break;
 	}
+
+	return 0;
 }
