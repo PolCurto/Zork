@@ -23,7 +23,9 @@ int main()
 
 	srand((unsigned int)time(NULL));    // Seed the random numbers
 
-	cout << "Welcome to Zork! \n \n";
+	cout << "Welcome! \n";
+	cout << "This is a small text-based game. In order to complete it, find and use the item called Star.\n";
+	cout <<	"Good luck!\n\n";
 	cout << "- ";
 
 	while (true)

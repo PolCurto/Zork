@@ -74,7 +74,7 @@ bool Exit::IsValidDirection(string direction, const Room* source) const
 }
 
 /*
-* Returns the room linked to the ongiven by value
+* Returns the room thas is linked to the one given
 */
 Entity* Exit::GetLinkedRoom(const Entity* currentRoom) const
 {
