@@ -15,7 +15,7 @@ This is a simple text-based game like Zork made entirely in C++. It has seven ro
 ## General explanation
 The game consists in seven rooms, which are connected in the following way:
 
-                  Poison lake--------Dark forest-------King's chamber
+                  Poison lake--------Dark woods-------King's chamber
                                           |                  |
                                           |                  |
                                           |                  |
