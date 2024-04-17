@@ -96,7 +96,9 @@ The NPCs are the following ones:
 Pick up the *Star* after defeating **Jesse** and use it to finish the game.
 
 ## Extras
-At first I had a little struggle to get the user input while keeping the code running so the NPCs can move around. The result works, but has some flaws, being the most important one that you can't properly delete what you have written. This way you have to write you commands without making any mistake so the game understands you, but apart from this works as expected.
+At first I had a little struggle to get the user input while keeping the code running so the NPCs can move around. The result works, but has some flaws, being the most important one that you can't properly delete what you have written. This way you have to write you commands without making any mistake so the game understands you, but apart from this everything else works as expected.
+
+Also, the zip folder with the build posted in the "Release" section may contain some unnecessary files because I was not sure which ones were strictly necessary and which ones could be removed.
 
 ## Credits
 Authors: Pol Curto
